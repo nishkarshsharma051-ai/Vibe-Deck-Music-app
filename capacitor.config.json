@@ -1,0 +1,13 @@
+{
+  "appId": "com.vibedeck.app",
+  "appName": "Vibe Deck",
+  "webDir": "dist",
+  "server": {
+    "cleartext": false
+  },
+  "plugins": {
+    "CapacitorHttp": {
+      "enabled": true
+    }
+  }
+}

@@ -1,0 +1,79 @@
+/* Top bar safe area padding for native status bar clearance */
+.vibedeck-topbar {
+  padding-top: calc(14px + env(safe-area-inset-top, 0px)) !important;
+}
+
+/* Bottom navigation height accounting for device home indicators */
+.mobile-nav {
+  height: calc(4.25rem + 10px + env(safe-area-inset-bottom, 0px)) !important;
+  padding-bottom: calc(10px + env(safe-area-inset-bottom, 0px)) !important;
+}
+
+/* Playback footer positioning — sits directly above the bottom nav */
+footer.playback-footer {
+  background: transparent !important;
+  border-top: none !important;
+  bottom: calc(4.25rem + 10px + env(safe-area-inset-bottom, 0px)) !important;
+  padding: 0 !important;
+}
+
+/* Mini player card styling */
+.vibedeck-mini-player {
+  margin-bottom: 8px;
+  background: rgba(24, 24, 24, 0.96) !important;
+  backdrop-filter: blur(20px);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+}
+
+/* Desktop overrides — different footer and header layout on wider screens */
+@media (min-width: 768px) {
+  footer.playback-footer {
+    bottom: 0 !important;
+    background: #000 !important;
+    border-top: 1px solid #282828 !important;
+  }
+}
+
+/* Sound bar animation for NowPlayingToast */
+@keyframes soundBar {
+  0%, 100% { transform: scaleY(0.4); }
+  50%       { transform: scaleY(1); }
+}
+.animate-soundBar {
+  animation: soundBar 0.8s ease-in-out infinite;
+  transform-origin: bottom;
+}
+
+/* Slide-up animation for ShareCard */
+@keyframes slideUp {
+  from { transform: translateY(100%); opacity: 0; }
+  to   { transform: translateY(0);    opacity: 1; }
+}
+.animate-slideUp {
+  animation: slideUp 0.35s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+/* Custom sleek scrollbar for web browsers */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 9999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+/* Utility class to hide scrollbars cleanly while retaining scroll behavior */
+.hide-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
+}

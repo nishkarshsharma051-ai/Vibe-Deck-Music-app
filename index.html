@@ -1,0 +1,33 @@
+<!doctype html>
+<html class="dark" lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta name="theme-color" content="#121212" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <title>Vibe Deck — Premium Audio System</title>
+    <meta name="description" content="Vibe Deck - Premium music streaming with ambient vibes, smart playlists and studio-quality audio." />
+
+    <!-- Critical Font Preloads (eliminates FOIT) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+    <!-- Google Fonts: Inter Text Font -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" />
+
+    <!-- Google Fonts: Material Symbols Outlined Icon Font -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" />
+
+    <!-- YouTube IFrame Player API — deferred so it never blocks rendering -->
+    <script defer src="https://www.youtube.com/iframe_api"></script>
+
+    <!-- HLS.js — deferred, only needed when playing HLS streams -->
+    <script defer src="https://cdn.jsdelivr.net/npm/hls.js@1/dist/hls.min.js"></script>
+  </head>
+  <body class="bg-background text-on-background selection:bg-primary/20 selection:text-primary">
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>
