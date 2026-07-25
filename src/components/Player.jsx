@@ -384,8 +384,10 @@ export default function Player({
     currentTrackRef.current = currentTrack;
   }, [currentTrack]);
 
-  // Visualizer rendering (organic wave sim, bypasses CORS muting)
+  // Visualizer rendering (organic wave sim) — only runs when visualizer is visible & playing
   useEffect(() => {
+    if (!showVisualizer || !isNowPlayingOpen || !isPlaying) return;
+
     const canvas = canvasRef.current;
     if (!canvas) return;
     const ctx = canvas.getContext('2d');
@@ -450,7 +452,7 @@ export default function Player({
         cancelAnimationFrame(animationFrameRef.current);
       }
     };
-  }, [isPlaying]);
+  }, [showVisualizer, isNowPlayingOpen, isPlaying]);
 
   const prevTrackIdRef = useRef('');
 
@@ -873,12 +875,13 @@ export default function Player({
         }}
       >
         {/* Dynamic immersive blurred album art background */}
-        <div className="fixed inset-0 z-0">
+        <div className="fixed inset-0 z-0 pointer-events-none overflow-hidden">
           {currentTrack?.coverUrl ? (
             <img
-              className="w-full h-full object-cover scale-110 blur-[120px] opacity-40 transition-transform duration-700"
+              className="w-full h-full object-cover scale-110 blur-[60px] opacity-35 transition-transform duration-700"
               alt="Dynamic Immersive Background"
               src={currentTrack.coverUrl}
+              style={{ willChange: 'opacity, transform', transform: 'translateZ(0)' }}
             />
           ) : (
             <div className="h-full w-full bg-[radial-gradient(circle_at_top,#2a3d46,#12131b_58%,#0b0b0f)]" />

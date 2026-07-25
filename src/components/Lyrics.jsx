@@ -93,11 +93,13 @@ const Lyrics = function Lyrics({
       {/* Dynamic blurred art backdrop */}
       {currentTrack && (
         <div
-          className="absolute inset-0 bg-cover bg-center pointer-events-none scale-110 transition-all duration-1000"
+          className="absolute inset-0 bg-cover bg-center pointer-events-none scale-105 transition-all duration-1000"
           style={{
             backgroundImage: `url(${currentTrack.coverUrl})`,
-            filter: 'blur(110px)',
-            opacity: 0.22,
+            filter: 'blur(50px)',
+            opacity: 0.18,
+            transform: 'translateZ(0)',
+            willChange: 'opacity',
           }}
         />
       )}
