@@ -17,6 +17,7 @@ import AlbumModal from './components/AlbumModal';
 import NowPlayingToast from './components/NowPlayingToast';
 import { saveLocalSong, getLocalSongs, deleteLocalSong } from './utils/db';
 import { extractDominantColor } from './utils/colorExtractor';
+import { requestNotificationPermission } from './utils/playbackControls';
 
 // Lazily loaded — only parsed when first visited
 const Dashboard = lazy(() => import('./components/Dashboard'));
@@ -172,6 +173,10 @@ export default function App() {
   });
 
   // Persist stats to localStorage
+  useEffect(() => {
+    requestNotificationPermission();
+  }, []);
+
   useEffect(() => {
     const key = user ? `vibedeck_${user.uid}_analytics` : 'vibedeck_analytics';
     localStorage.setItem(key, JSON.stringify(analytics));

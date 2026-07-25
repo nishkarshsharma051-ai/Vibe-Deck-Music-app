@@ -3,6 +3,19 @@ import { registerPlugin, Capacitor } from '@capacitor/core';
 const PlaybackControls = registerPlugin('PlaybackControls');
 
 /**
+ * Request notification permissions on startup (Android 13+ requirement)
+ */
+export async function requestNotificationPermission() {
+  try {
+    if ('Notification' in window && Notification.permission === 'default') {
+      await Notification.requestPermission();
+    }
+  } catch (err) {
+    console.log('Notification permission request skipped:', err);
+  }
+}
+
+/**
  * Update the native (Capacitor) media notification with full track metadata.
  * Falls back silently if not on a native platform or plugin is unavailable.
  */
