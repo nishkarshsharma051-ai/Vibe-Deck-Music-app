@@ -8,52 +8,54 @@
 .h-playback-height { height: 88px !important; }
 
 /* ─────────────────────────────────────────────────────────
-   Apple Music Design Tokens (iOS 17 & macOS Sonoma HIG)
+   VibeDeck Signature Theme: Liquid Amber Gold & Obsidian Glass
+   Apple HIG material standard + Custom Luxury Branding
 ───────────────────────────────────────────────────────── */
 :root {
-  /* Primary Apple Music Brand Color (Pink/Red Accent) */
-  --apple-red:          #FA243C;
-  --apple-red-hover:    #FF3B52;
-  --apple-red-muted:    rgba(250, 36, 60, 0.15);
-  
-  /* System Accents */
+  /* Signature VibeDeck Amber Gold Palette */
+  --amber-primary:      #F59E0B;
+  --amber-light:        #FBBF24;
+  --amber-dark:         #D97706;
+  --amber-glow:         rgba(245, 158, 11, 0.22);
+  --amber-muted:        rgba(245, 158, 11, 0.12);
+
+  /* System Support Colors */
   --apple-blue:         #0A84FF;
   --apple-purple:       #BF5AF2;
-  --apple-pink:         #FF375F;
   --apple-green:        #32D74B;
-  --apple-orange:       #FF9F0A;
+  --apple-pink:         #FF375F;
 
-  /* Surfaces (OLED True Black base) */
-  --bg-primary:         #000000;
-  --bg-secondary:       #1C1C1E;
-  --bg-tertiary:        #2C2C2E;
-  --bg-quaternary:      #3A3A3C;
+  /* Obsidian Glass Surfaces */
+  --bg-primary:         #070709;
+  --bg-secondary:       #131316;
+  --bg-tertiary:        #1F1F24;
+  --bg-quaternary:      #2A2A30;
 
-  /* Typography Labels (SF Pro Spec) */
+  /* Typography Labels */
   --label-primary:      #FFFFFF;
-  --label-secondary:    rgba(235, 235, 245, 0.60);
-  --label-tertiary:     rgba(235, 235, 245, 0.30);
-  --label-quaternary:   rgba(235, 235, 245, 0.18);
+  --label-secondary:    rgba(240, 240, 245, 0.65);
+  --label-tertiary:     rgba(240, 240, 245, 0.35);
+  --label-quaternary:   rgba(240, 240, 245, 0.18);
 
-  /* Hairline Separators */
-  --separator:          rgba(84, 84, 88, 0.35);
-  --separator-opaque:   #38383A;
+  /* Hairline Borders */
+  --separator:          rgba(245, 158, 11, 0.12);
+  --separator-subtle:   rgba(255, 255, 255, 0.08);
 
-  /* Standard Apple Radii */
+  /* Standard Radii */
   --radius-sm:          6px;
   --radius-md:          10px;
   --radius-lg:          12px;
   --radius-xl:          16px;
 
-  /* Legacy compatibility aliases */
-  --primary:            var(--apple-red);
+  /* Aliases */
+  --primary:            var(--amber-primary);
   --background:         var(--bg-primary);
   --surface:            var(--bg-secondary);
-  --theme-glow:         rgba(250, 36, 60, 0.14);
+  --theme-glow:         var(--amber-glow);
 }
 
 /* ─────────────────────────────────────────────────────────
-   Base Typography & Resets
+   Base & Resets
 ───────────────────────────────────────────────────────── */
 *, *::before, *::after { box-sizing: border-box; }
 
@@ -71,7 +73,6 @@ body {
                "Inter", system-ui, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  font-feature-settings: "kern" 1, "liga" 1, "calt" 1;
 
   background-color: var(--bg-primary);
   color: var(--label-primary);
@@ -91,23 +92,15 @@ button, a, [role="button"] {
 }
 
 /* ─────────────────────────────────────────────────────────
-   Apple Materials & Frosted Glass
+   Glass Materials
 ───────────────────────────────────────────────────────── */
-.apple-material-thin {
-  background: rgba(22, 22, 23, 0.82);
-  backdrop-filter: blur(40px) saturate(190%) brightness(0.95);
-  -webkit-backdrop-filter: blur(40px) saturate(190%) brightness(0.95);
-}
-.apple-material-thick {
-  background: rgba(22, 22, 23, 0.94);
-  backdrop-filter: blur(50px) saturate(200%);
-  -webkit-backdrop-filter: blur(50px) saturate(200%);
+.amber-glass {
+  background: rgba(19, 19, 22, 0.85);
+  backdrop-filter: blur(40px) saturate(190%);
+  -webkit-backdrop-filter: blur(40px) saturate(190%);
+  border: 0.5px solid var(--separator);
 }
 
-.glass-panel-1 { background: var(--bg-secondary); border: 0.5px solid var(--separator); border-radius: var(--radius-lg); }
-.glass-panel-2 { background: var(--bg-tertiary);  border: 0.5px solid var(--separator); border-radius: var(--radius-lg); }
-
-/* Apple Press Scale Effect */
 .apple-press {
   transition: transform 0.12s cubic-bezier(0.25, 0.46, 0.45, 0.94), opacity 0.12s ease;
 }
@@ -116,7 +109,6 @@ button, a, [role="button"] {
   opacity: 0.85;
 }
 
-/* Track Card Play Button Overlay */
 .track-card .play-btn {
   opacity: 0;
   transform: translateY(4px) scale(0.94);
@@ -128,14 +120,14 @@ button, a, [role="button"] {
   transform: translateY(0) scale(1);
 }
 
-/* Quiet Scrollbars */
+/* Custom Amber Scrollbar */
 ::-webkit-scrollbar { width: 6px; height: 6px; }
 ::-webkit-scrollbar-track { background: transparent; }
 ::-webkit-scrollbar-thumb {
-  background: rgba(84, 84, 88, 0.40);
+  background: rgba(245, 158, 11, 0.30);
   border-radius: 9999px;
 }
-::-webkit-scrollbar-thumb:hover { background: rgba(84, 84, 88, 0.70); }
+::-webkit-scrollbar-thumb:hover { background: rgba(245, 158, 11, 0.60); }
 
 .hide-scrollbar::-webkit-scrollbar { display: none; }
 .hide-scrollbar {
@@ -150,14 +142,13 @@ button, a, [role="button"] {
 }
 .shelf-scroll > * { scroll-snap-align: start; }
 
-/* Inset Grouped Table Cell (iOS Style) */
 .ios-grouped-cell {
-  background: rgba(44, 44, 46, 0.65);
-  border-bottom: 0.5px solid var(--separator);
+  background: rgba(31, 31, 36, 0.65);
+  border-bottom: 0.5px solid var(--separator-subtle);
   transition: background-color 0.15s ease;
 }
 .ios-grouped-cell:hover {
-  background: rgba(58, 58, 60, 0.80);
+  background: rgba(245, 158, 11, 0.10);
 }
 .ios-grouped-cell:last-child {
   border-bottom: none;
@@ -187,9 +178,8 @@ button, a, [role="button"] {
 .animate-soundwave-4 { animation: soundwave 1.2s infinite ease-in-out 0.45s; }
 .animate-soundwave-5 { animation: soundwave 1.2s infinite ease-in-out 0.60s; }
 
-/* Input Focus Ring */
 input:focus, textarea:focus, select:focus {
   outline: none;
-  box-shadow: 0 0 0 3px rgba(250, 36, 60, 0.35);
-  border-color: var(--apple-red) !important;
+  box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.35);
+  border-color: var(--amber-primary) !important;
 }

@@ -35,15 +35,15 @@ export default function Sidebar({
         onClick={() => { setActiveTab(item.id); setCurrentPlaylist(null); }}
         className={`w-full flex items-center gap-2.5 px-3 py-[6px] rounded-[6px] text-[13px] font-medium transition-all duration-150 cursor-pointer ${
           isActive
-            ? 'bg-[#2C2C2E] text-white font-semibold'
-            : 'text-[rgba(235,235,245,0.55)] hover:bg-[rgba(255,255,255,0.05)] hover:text-white'
+            ? 'bg-[#1F1F24] text-white font-semibold'
+            : 'text-[rgba(240,240,245,0.55)] hover:bg-[rgba(255,255,255,0.05)] hover:text-white'
         }`}
       >
         <span
           className="material-symbols-outlined text-[17px]"
           style={{
             fontVariationSettings: isActive && item.fill ? "'FILL' 1" : "'FILL' 0",
-            color: isActive ? '#FA243C' : 'inherit',
+            color: isActive ? '#F59E0B' : 'inherit',
           }}
         >
           {item.icon}
@@ -59,32 +59,32 @@ export default function Sidebar({
     <aside
       className="w-[240px] h-full fixed left-0 top-0 hidden md:flex flex-col z-40 select-none"
       style={{
-        background: 'rgba(18, 18, 20, 0.96)',
+        background: 'rgba(15, 15, 18, 0.96)',
         backdropFilter: 'blur(40px) saturate(190%)',
         WebkitBackdropFilter: 'blur(40px) saturate(190%)',
-        borderRight: '0.5px solid rgba(84, 84, 88, 0.35)',
+        borderRight: '0.5px solid rgba(245, 158, 11, 0.12)',
       }}
     >
       {/* Brand */}
       <div
         className="px-4 py-4 flex items-center gap-2.5 cursor-pointer flex-shrink-0"
         onClick={() => { setActiveTab('home'); setCurrentPlaylist(null); }}
-        style={{ borderBottom: '0.5px solid rgba(84,84,88,0.25)' }}
+        style={{ borderBottom: '0.5px solid rgba(255,255,255,0.08)' }}
       >
         <div
           className="flex h-[30px] w-[30px] items-center justify-center rounded-[8px] flex-shrink-0"
           style={{
-            background: 'linear-gradient(145deg, #FA243C, #D81B30)',
-            boxShadow: '0 2px 8px rgba(250, 36, 60, 0.35)',
+            background: 'linear-gradient(135deg, #FBBF24, #D97706)',
+            boxShadow: '0 2px 8px rgba(245, 158, 11, 0.30)',
           }}
         >
-          <span className="material-symbols-outlined text-white text-[16px]" style={{ fontVariationSettings: "'FILL' 1" }}>
+          <span className="material-symbols-outlined text-black text-[16px] font-black" style={{ fontVariationSettings: "'FILL' 1" }}>
             music_note
           </span>
         </div>
         <div>
           <p className="text-[14px] font-bold text-white tracking-[-0.2px]">Vibe Deck</p>
-          <p className="text-[10px] font-semibold uppercase tracking-widest text-[#FA243C]">Music</p>
+          <p className="text-[10px] font-semibold uppercase tracking-widest text-[#F59E0B]">Music</p>
         </div>
       </div>
 
@@ -95,7 +95,7 @@ export default function Sidebar({
             {section.heading && (
               <p
                 className="px-3 mb-1 text-[11px] font-bold uppercase tracking-[0.08em]"
-                style={{ color: 'rgba(235,235,245,0.35)' }}
+                style={{ color: 'rgba(240,240,245,0.35)' }}
               >
                 {section.heading}
               </p>
@@ -109,7 +109,7 @@ export default function Sidebar({
         {/* Library */}
         <div>
           <div className="flex items-center justify-between px-3 mb-1">
-            <p className="text-[11px] font-bold uppercase tracking-[0.08em]" style={{ color: 'rgba(235,235,245,0.35)' }}>
+            <p className="text-[11px] font-bold uppercase tracking-[0.08em]" style={{ color: 'rgba(240,240,245,0.35)' }}>
               Library
             </p>
             <button
@@ -117,7 +117,7 @@ export default function Sidebar({
               className="w-5 h-5 flex items-center justify-center rounded cursor-pointer hover:bg-white/10 transition-colors"
               title="New Playlist"
             >
-              <span className="material-symbols-outlined text-[15px]" style={{ color: 'rgba(235,235,245,0.50)' }}>add</span>
+              <span className="material-symbols-outlined text-[15px]" style={{ color: 'rgba(240,240,245,0.50)' }}>add</span>
             </button>
           </div>
 
@@ -127,19 +127,19 @@ export default function Sidebar({
               onClick={() => handlePlaylistClick('liked')}
               className={`flex items-center gap-2.5 px-3 py-[6px] rounded-[6px] cursor-pointer transition-all duration-150 ${
                 isLibraryActive('liked')
-                  ? 'bg-[#2C2C2E]'
+                  ? 'bg-[#1F1F24]'
                   : 'hover:bg-[rgba(255,255,255,0.05)]'
               }`}
             >
               <div
                 className="w-[20px] h-[20px] rounded-[4px] flex items-center justify-center flex-shrink-0"
-                style={{ background: 'linear-gradient(145deg, #FA243C, #C61C30)' }}
+                style={{ background: 'linear-gradient(135deg, #F59E0B, #B45309)' }}
               >
-                <span className="material-symbols-outlined text-white text-[11px]" style={{ fontVariationSettings: "'FILL' 1" }}>favorite</span>
+                <span className="material-symbols-outlined text-black text-[11px] font-black" style={{ fontVariationSettings: "'FILL' 1" }}>favorite</span>
               </div>
               <span
                 className={`text-[13px] font-medium truncate ${isLibraryActive('liked') ? 'text-white font-semibold' : ''}`}
-                style={{ color: isLibraryActive('liked') ? '#fff' : 'rgba(235,235,245,0.70)' }}
+                style={{ color: isLibraryActive('liked') ? '#fff' : 'rgba(240,240,245,0.70)' }}
               >
                 Liked Songs
               </span>
@@ -150,26 +150,26 @@ export default function Sidebar({
               onClick={() => handlePlaylistClick('local')}
               className={`flex items-center gap-2.5 px-3 py-[6px] rounded-[6px] cursor-pointer transition-all duration-150 ${
                 isLibraryActive('local')
-                  ? 'bg-[#2C2C2E]'
+                  ? 'bg-[#1F1F24]'
                   : 'hover:bg-[rgba(255,255,255,0.05)]'
               }`}
             >
               <div
                 className="w-[20px] h-[20px] rounded-[4px] flex items-center justify-center flex-shrink-0"
-                style={{ background: 'linear-gradient(145deg, #636366, #48484A)' }}
+                style={{ background: 'linear-gradient(135deg, #4B5563, #374151)' }}
               >
                 <span className="material-symbols-outlined text-white text-[11px]">folder</span>
               </div>
               <span
                 className="text-[13px] font-medium truncate"
-                style={{ color: isLibraryActive('local') ? '#fff' : 'rgba(235,235,245,0.70)' }}
+                style={{ color: isLibraryActive('local') ? '#fff' : 'rgba(240,240,245,0.70)' }}
               >
                 Local Files
               </span>
             </div>
 
             {playlists.length > 0 && (
-              <div className="h-px mx-3 my-1" style={{ background: 'rgba(84,84,88,0.3)' }} />
+              <div className="h-px mx-3 my-1" style={{ background: 'rgba(255,255,255,0.08)' }} />
             )}
 
             {playlists.map((pl) => (
@@ -178,18 +178,18 @@ export default function Sidebar({
                 onClick={() => handlePlaylistClick(pl.id)}
                 className={`flex items-center gap-2.5 px-3 py-[6px] rounded-[6px] cursor-pointer transition-all duration-150 ${
                   isLibraryActive(pl.id)
-                    ? 'bg-[#2C2C2E]'
+                    ? 'bg-[#1F1F24]'
                     : 'hover:bg-[rgba(255,255,255,0.05)]'
                 }`}
               >
                 <div
-                  className="w-[20px] h-[20px] rounded-[4px] flex items-center justify-center flex-shrink-0 bg-[#3A3A3C]"
+                  className="w-[20px] h-[20px] rounded-[4px] flex items-center justify-center flex-shrink-0 bg-[#2A2A30]"
                 >
-                  <span className="material-symbols-outlined text-[11px]" style={{ color: 'rgba(235,235,245,0.55)' }}>music_note</span>
+                  <span className="material-symbols-outlined text-[11px]" style={{ color: 'rgba(240,240,245,0.55)' }}>music_note</span>
                 </div>
                 <span
                   className="text-[13px] font-medium truncate"
-                  style={{ color: isLibraryActive(pl.id) ? '#fff' : 'rgba(235,235,245,0.70)' }}
+                  style={{ color: isLibraryActive(pl.id) ? '#fff' : 'rgba(240,240,245,0.70)' }}
                 >
                   {pl.name}
                 </span>
@@ -202,7 +202,7 @@ export default function Sidebar({
       {/* Profile Footer */}
       <div
         className="px-3 py-3 flex-shrink-0"
-        style={{ borderTop: '0.5px solid rgba(84,84,88,0.25)' }}
+        style={{ borderTop: '0.5px solid rgba(255,255,255,0.08)' }}
       >
         <div
           className="flex items-center gap-2.5 p-2 rounded-[8px] cursor-pointer hover:bg-white/5 transition-all"
@@ -210,7 +210,7 @@ export default function Sidebar({
         >
           <div
             className="w-7 h-7 rounded-full overflow-hidden flex-shrink-0 flex items-center justify-center"
-            style={{ background: user ? 'transparent' : '#3A3A3C', border: '0.5px solid rgba(84,84,88,0.5)' }}
+            style={{ background: user ? 'transparent' : '#2A2A30', border: '0.5px solid rgba(245,158,11,0.3)' }}
           >
             {user ? (
               <img
@@ -219,7 +219,7 @@ export default function Sidebar({
                 src={user.photoURL || "https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=200&auto=format&fit=crop"}
               />
             ) : (
-              <span className="material-symbols-outlined text-[15px]" style={{ color: 'rgba(235,235,245,0.50)' }}>person</span>
+              <span className="material-symbols-outlined text-[15px]" style={{ color: 'rgba(240,240,245,0.50)' }}>person</span>
             )}
           </div>
           <div className="min-w-0 flex-1">

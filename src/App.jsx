@@ -1414,10 +1414,11 @@ export default function App() {
             </div>
             <div className="flex gap-1.5 mt-1">
               {[0,1,2].map(i => (
-                <div key={i} className="w-1.5 h-1.5 rounded-full bg-[#FA243C]"
+                <div key={i} className="w-1.5 h-1.5 rounded-full bg-[#F59E0B]"
                   style={{ animation: `soundwave-${i+1} 1.2s ease-in-out infinite`, animationDelay: `${i * 0.18}s`, transformOrigin: 'bottom' }} />
               ))}
             </div>
+
 
           </div>
         </div>
@@ -1448,11 +1449,11 @@ export default function App() {
               <div
                 className="flex h-7 w-7 items-center justify-center rounded-[6px] flex-shrink-0"
                 style={{
-                  background: 'linear-gradient(145deg, #FA243C, #D81B30)',
-                  boxShadow: '0 2px 8px rgba(250, 36, 60, 0.35)',
+                  background: 'linear-gradient(135deg, #FBBF24, #D97706)',
+                  boxShadow: '0 2px 8px rgba(245, 158, 11, 0.35)',
                 }}
               >
-                <span className="material-symbols-outlined text-white text-[15px]" style={{ fontVariationSettings: "'FILL' 1" }}>music_note</span>
+                <span className="material-symbols-outlined text-black text-[15px] font-black" style={{ fontVariationSettings: "'FILL' 1" }}>music_note</span>
               </div>
               <div>
                 <div className="flex items-center gap-2">
@@ -1465,8 +1466,9 @@ export default function App() {
                     </span>
                   )}
                 </div>
-                <p className="text-[10px] font-semibold uppercase tracking-widest text-[#FA243C]">Music</p>
+                <p className="text-[10px] font-semibold uppercase tracking-widest text-[#F59E0B]">Music</p>
               </div>
+
 
             </div>
 
@@ -1482,15 +1484,17 @@ export default function App() {
               </button>
               <button
                 onClick={handleAuthClick}
-                className="flex h-8 min-w-8 items-center justify-center rounded-full px-3 text-[12px] font-semibold text-white transition-all"
+                className="flex h-8 min-w-8 items-center justify-center rounded-full px-3 text-[12px] font-semibold text-black transition-all"
                 style={{
-                  background: user ? 'rgba(120,120,128,0.20)' : '#FA243C',
-                  boxShadow: user ? 'none' : '0 2px 8px rgba(250,36,60,0.30)',
+                  background: user ? 'rgba(120,120,128,0.20)' : 'linear-gradient(135deg, #FBBF24, #D97706)',
+                  color: user ? '#FFFFFF' : '#000000',
+                  boxShadow: user ? 'none' : '0 2px 8px rgba(245,158,11,0.30)',
                 }}
                 title="Account"
               >
                 {user ? (user.displayName?.[0] || user.email?.[0] || 'U') : 'Sign In'}
               </button>
+
 
             </div>
           </div>
@@ -1654,7 +1658,7 @@ export default function App() {
               <span
                 className="material-symbols-outlined text-[24px] transition-colors duration-150"
                 style={{
-                  color: isActive ? '#FA243C' : 'rgba(235,235,245,0.45)',
+                  color: isActive ? '#F59E0B' : 'rgba(240,240,245,0.45)',
                   fontVariationSettings: isActive ? "'FILL' 1" : "'FILL' 0",
                 }}
               >
@@ -1662,10 +1666,11 @@ export default function App() {
               </span>
               <span
                 className="text-[10px] font-medium transition-colors duration-150"
-                style={{ color: isActive ? '#FA243C' : 'rgba(235,235,245,0.45)' }}
+                style={{ color: isActive ? '#F59E0B' : 'rgba(240,240,245,0.45)' }}
               >
                 {tab.label}
               </span>
+
 
             </button>
           );

@@ -1,7 +1,7 @@
 import React from 'react';
 
 /**
- * VibeDeck Logo — Apple Music Brand Red (#FA243C)
+ * VibeDeck Official Brand Logo — Liquid Amber Gold (#F59E0B)
  */
 export default function Logo({ size = 'md', className = '', animated = false }) {
   const dimensions = {
@@ -21,9 +21,9 @@ export default function Logo({ size = 'md', className = '', animated = false }) 
       >
         <defs>
           <linearGradient id="vibedeck-logo-grad" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%"   stopColor="#FA243C" />
-            <stop offset="60%"  stopColor="#D81B30" />
-            <stop offset="100%" stopColor="#FF375F" />
+            <stop offset="0%"   stopColor="#FBBF24" />
+            <stop offset="50%"  stopColor="#F59E0B" />
+            <stop offset="100%" stopColor="#D97706" />
           </linearGradient>
           <filter id="logo-glow" x="-20%" y="-20%" width="140%" height="140%">
             <feGaussianBlur stdDeviation="2" result="blur" />
