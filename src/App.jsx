@@ -1414,10 +1414,11 @@ export default function App() {
             </div>
             <div className="flex gap-1.5 mt-1">
               {[0,1,2].map(i => (
-                <div key={i} className="w-1.5 h-1.5 rounded-full bg-[#F59E0B]"
+                <div key={i} className="w-1.5 h-1.5 rounded-full bg-white"
                   style={{ animation: `soundwave-${i+1} 1.2s ease-in-out infinite`, animationDelay: `${i * 0.18}s`, transformOrigin: 'bottom' }} />
               ))}
             </div>
+
 
 
           </div>
@@ -1449,8 +1450,8 @@ export default function App() {
               <div
                 className="flex h-7 w-7 items-center justify-center rounded-[6px] flex-shrink-0"
                 style={{
-                  background: 'linear-gradient(135deg, #FBBF24, #D97706)',
-                  boxShadow: '0 2px 8px rgba(245, 158, 11, 0.35)',
+                  background: 'linear-gradient(135deg, #FFFFFF, #E2E8F0)',
+                  boxShadow: '0 2px 8px rgba(255, 255, 255, 0.20)',
                 }}
               >
                 <span className="material-symbols-outlined text-black text-[15px] font-black" style={{ fontVariationSettings: "'FILL' 1" }}>music_note</span>
@@ -1460,14 +1461,15 @@ export default function App() {
                   <h1 className="text-[15px] font-bold tracking-tight text-white" style={{ letterSpacing: '-0.2px' }}>Vibe Deck</h1>
                   {!isOnline && (
                     <span className="text-[10px] font-semibold px-2 py-0.5 rounded-full flex items-center gap-1"
-                      style={{ background: 'rgba(255,69,58,0.12)', color: '#FF453A', border: '0.5px solid rgba(255,69,58,0.25)' }}>
-                      <span className="w-1.5 h-1.5 rounded-full bg-[#FF453A] animate-pulse" />
+                      style={{ background: 'rgba(255,255,255,0.10)', color: '#FFFFFF', border: '0.5px solid rgba(255,255,255,0.20)' }}>
+                      <span className="w-1.5 h-1.5 rounded-full bg-white animate-pulse" />
                       Offline
                     </span>
                   )}
                 </div>
-                <p className="text-[10px] font-semibold uppercase tracking-widest text-[#F59E0B]">Music</p>
+                <p className="text-[10px] font-semibold uppercase tracking-widest text-white/50">Music</p>
               </div>
+
 
 
             </div>
@@ -1486,14 +1488,15 @@ export default function App() {
                 onClick={handleAuthClick}
                 className="flex h-8 min-w-8 items-center justify-center rounded-full px-3 text-[12px] font-semibold text-black transition-all"
                 style={{
-                  background: user ? 'rgba(120,120,128,0.20)' : 'linear-gradient(135deg, #FBBF24, #D97706)',
+                  background: user ? 'rgba(120,120,128,0.20)' : '#FFFFFF',
                   color: user ? '#FFFFFF' : '#000000',
-                  boxShadow: user ? 'none' : '0 2px 8px rgba(245,158,11,0.30)',
+                  boxShadow: user ? 'none' : '0 2px 8px rgba(255,255,255,0.20)',
                 }}
                 title="Account"
               >
                 {user ? (user.displayName?.[0] || user.email?.[0] || 'U') : 'Sign In'}
               </button>
+
 
 
             </div>
@@ -1658,7 +1661,7 @@ export default function App() {
               <span
                 className="material-symbols-outlined text-[24px] transition-colors duration-150"
                 style={{
-                  color: isActive ? '#F59E0B' : 'rgba(240,240,245,0.45)',
+                  color: isActive ? '#FFFFFF' : 'rgba(255,255,255,0.40)',
                   fontVariationSettings: isActive ? "'FILL' 1" : "'FILL' 0",
                 }}
               >
@@ -1666,10 +1669,11 @@ export default function App() {
               </span>
               <span
                 className="text-[10px] font-medium transition-colors duration-150"
-                style={{ color: isActive ? '#F59E0B' : 'rgba(240,240,245,0.45)' }}
+                style={{ color: isActive ? '#FFFFFF' : 'rgba(255,255,255,0.40)' }}
               >
                 {tab.label}
               </span>
+
 
 
             </button>

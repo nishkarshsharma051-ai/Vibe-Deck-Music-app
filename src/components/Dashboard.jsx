@@ -1,12 +1,12 @@
 import React, { useEffect, useMemo, useState, useCallback } from 'react';
 
 const MOODS = [
-  { id: 'chill',   label: 'Chill',    icon: 'nights_stay',      query: 'chill lofi relax',           color: '#FBBF24' },
-  { id: 'energy',  label: 'Energy',   icon: 'bolt',             query: 'energetic pump workout',     color: '#F59E0B' },
-  { id: 'focus',   label: 'Focus',    icon: 'self_improvement', query: 'study focus concentration',  color: '#10B981' },
-  { id: 'party',   label: 'Party',    icon: 'celebration',      query: 'party dance hits',           color: '#EC4899' },
-  { id: 'romance', label: 'Romance',  icon: 'favorite',         query: 'love romantic songs',        color: '#F43F5E' },
-  { id: 'sad',     label: 'Sad',      icon: 'cloud_queue',      query: 'sad emotional heartbreak',   color: '#60A5FA' },
+  { id: 'chill',   label: 'Chill',    icon: 'nights_stay',      query: 'chill lofi relax',           color: '#E2E8F0' },
+  { id: 'energy',  label: 'Energy',   icon: 'bolt',             query: 'energetic pump workout',     color: '#FFFFFF' },
+  { id: 'focus',   label: 'Focus',    icon: 'self_improvement', query: 'study focus concentration',  color: '#CBD5E1' },
+  { id: 'party',   label: 'Party',    icon: 'celebration',      query: 'party dance hits',           color: '#F1F5F9' },
+  { id: 'romance', label: 'Romance',  icon: 'favorite',         query: 'love romantic songs',        color: '#FFFFFF' },
+  { id: 'sad',     label: 'Sad',      icon: 'cloud_queue',      query: 'sad emotional heartbreak',   color: '#94A3B8' },
 ];
 
 function isTrackPlayable(track) {
@@ -18,13 +18,13 @@ function isTrackPlayable(track) {
   );
 }
 
-/* ── Shelf (Amber Gold Play Button) ── */
+/* ── Shelf (Ice White Play Button) ── */
 function Shelf({ title, items, onPlayTrack }) {
   return (
     <section className="space-y-2.5 animate-cardReveal">
       <div className="flex items-center justify-between px-0.5">
         <h2 className="text-[17px] font-bold tracking-tight text-white">{title}</h2>
-        <button className="text-[13px] font-semibold text-[#F59E0B] hover:opacity-75 transition-opacity">
+        <button className="text-[13px] font-semibold text-white/70 hover:text-white transition-opacity">
           See All
         </button>
       </div>
@@ -36,7 +36,7 @@ function Shelf({ title, items, onPlayTrack }) {
             className="track-card group w-[140px] shrink-0 text-left cursor-pointer apple-press"
             style={{ animationDelay: `${idx * 40}ms` }}
           >
-            <div className="relative aspect-square overflow-hidden rounded-[12px] bg-[#131316] shadow-lg group-hover:shadow-xl transition-shadow duration-200 border border-white/5">
+            <div className="relative aspect-square overflow-hidden rounded-[12px] bg-[#121215] shadow-lg group-hover:shadow-xl transition-shadow duration-200 border border-white/10">
               <img
                 src={track.coverUrl}
                 alt={track.title}
@@ -44,14 +44,14 @@ function Shelf({ title, items, onPlayTrack }) {
                 loading="lazy"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
-              {/* Amber Gold Play Button */}
+              {/* Ice White Play Button */}
               <div className="play-btn absolute bottom-2 right-2 flex h-9 w-9 items-center justify-center rounded-full shadow-lg"
-                style={{ background: 'linear-gradient(135deg, #FBBF24, #D97706)' }}>
+                style={{ background: '#FFFFFF' }}>
                 <span className="material-symbols-outlined text-black font-black text-[16px]">play_arrow</span>
               </div>
             </div>
             <p className="mt-2 truncate text-[13px] font-semibold text-white leading-snug">{track.title}</p>
-            <p className="truncate text-[12px]" style={{ color: 'rgba(240,240,245,0.55)' }}>{track.artist}</p>
+            <p className="truncate text-[12px]" style={{ color: 'rgba(255,255,255,0.55)' }}>{track.artist}</p>
           </button>
         ))}
       </div>
@@ -64,7 +64,7 @@ function AlbumShelf({ title, items, onPlayAlbum }) {
     <section className="space-y-2.5 animate-cardReveal">
       <div className="flex items-center justify-between px-0.5">
         <h2 className="text-[17px] font-bold tracking-tight text-white">{title}</h2>
-        <button className="text-[13px] font-semibold text-[#F59E0B] hover:opacity-75 transition-opacity">
+        <button className="text-[13px] font-semibold text-white/70 hover:text-white transition-opacity">
           See All
         </button>
       </div>
@@ -75,7 +75,7 @@ function AlbumShelf({ title, items, onPlayAlbum }) {
             onClick={() => onPlayAlbum && onPlayAlbum(album)}
             className="track-card group w-[140px] shrink-0 text-left cursor-pointer apple-press"
           >
-            <div className="relative aspect-square overflow-hidden rounded-[12px] bg-[#131316] shadow-lg group-hover:shadow-xl transition-shadow duration-200 border border-white/5">
+            <div className="relative aspect-square overflow-hidden rounded-[12px] bg-[#121215] shadow-lg group-hover:shadow-xl transition-shadow duration-200 border border-white/10">
               <img
                 src={album.img}
                 alt={album.name}
@@ -84,7 +84,7 @@ function AlbumShelf({ title, items, onPlayAlbum }) {
               />
             </div>
             <p className="mt-2 truncate text-[13px] font-semibold text-white leading-snug">{album.name}</p>
-            <p className="truncate text-[12px]" style={{ color: 'rgba(240,240,245,0.55)' }}>{album.artist}</p>
+            <p className="truncate text-[12px]" style={{ color: 'rgba(255,255,255,0.55)' }}>{album.artist}</p>
           </button>
         ))}
       </div>
@@ -167,22 +167,22 @@ function MoodChips({ onPlayTrack }) {
               className="relative flex flex-col items-center justify-center gap-1.5 py-3 px-2 rounded-[12px] transition-all duration-150 cursor-pointer apple-press overflow-hidden"
               style={{
                 background: isActive
-                  ? 'linear-gradient(135deg, #FBBF24, #D97706)'
-                  : 'rgba(31, 31, 36, 0.60)',
+                  ? '#FFFFFF'
+                  : 'rgba(26, 26, 30, 0.65)',
                 border: isActive
-                  ? '0.5px solid #FBBF24'
-                  : '0.5px solid rgba(255, 255, 255, 0.08)',
+                  ? '0.5px solid #FFFFFF'
+                  : '0.5px solid rgba(255, 255, 255, 0.10)',
               }}
             >
               <span
                 className={`material-symbols-outlined text-[18px] ${isLoading ? 'animate-spin' : ''}`}
-                style={{ color: isActive ? '#000000' : mood.color, fontVariationSettings: "'FILL' 1" }}
+                style={{ color: isActive ? '#000000' : 'rgba(255,255,255,0.80)', fontVariationSettings: "'FILL' 1" }}
               >
                 {isLoading ? 'autorenew' : mood.icon}
               </span>
               <span
                 className="text-[11px] font-semibold tracking-wide"
-                style={{ color: isActive ? '#000000' : 'rgba(240,240,245,0.75)' }}
+                style={{ color: isActive ? '#000000' : 'rgba(255,255,255,0.75)' }}
               >
                 {mood.label}
               </span>
@@ -212,10 +212,10 @@ export default function Dashboard({
   const quickPicks     = useMemo(() => history.filter(isTrackPlayable).filter(t => !isOnline ? t.isLocal : true).slice(0, 6), [history, isOnline]);
   const recentlyPlayed = useMemo(() => history.filter(isTrackPlayable).filter(t => !isOnline ? t.isLocal : true).slice(0, 8), [history, isOnline]);
 
-  /* Liquid Amber Radial Glow */
+  /* Deep Monochrome Ambient Fade */
   const heroBg = accentColor
-    ? `radial-gradient(ellipse 90% 60% at 50% -20%, hsl(${accentColor.h}, ${Math.min(accentColor.s, 65)}%, 18%) 0%, #070709 80%)`
-    : 'radial-gradient(ellipse 90% 60% at 50% -20%, rgba(245, 158, 11, 0.16) 0%, #070709 80%)';
+    ? `radial-gradient(ellipse 90% 60% at 50% -20%, hsl(${accentColor.h}, ${Math.min(accentColor.s, 40)}%, 14%) 0%, #000000 80%)`
+    : 'radial-gradient(ellipse 90% 60% at 50% -20%, rgba(255, 255, 255, 0.08) 0%, #000000 80%)';
 
   return (
     <div
@@ -234,16 +234,16 @@ export default function Dashboard({
 
       {!isOnline && (
         <div className="mb-4 inline-flex items-center gap-2 rounded-full px-3 py-1 text-[12px] font-semibold"
-          style={{ background: 'rgba(255,69,58,0.12)', color: '#FF453A', border: '0.5px solid rgba(255,69,58,0.25)' }}>
-          <span className="w-1.5 h-1.5 rounded-full bg-[#FF453A] animate-pulse" />
+          style={{ background: 'rgba(255,255,255,0.10)', color: '#FFFFFF', border: '0.5px solid rgba(255,255,255,0.20)' }}>
+          <span className="w-1.5 h-1.5 rounded-full bg-white animate-pulse" />
           Offline Mode
         </div>
       )}
 
-      {/* Quick Picks — Inset Grouped Cell with Amber Highlight */}
+      {/* Quick Picks */}
       {quickPicks.length > 0 && (
         <section className="mb-6 animate-cardReveal">
-          <div className="overflow-hidden rounded-[12px]" style={{ border: '0.5px solid rgba(245, 158, 11, 0.15)', background: 'rgba(19, 19, 22, 0.70)' }}>
+          <div className="overflow-hidden rounded-[12px]" style={{ border: '0.5px solid rgba(255, 255, 255, 0.12)', background: 'rgba(18, 18, 21, 0.70)' }}>
             <div className="grid grid-cols-1 divide-y divide-[rgba(255,255,255,0.06)] sm:grid-cols-2 sm:divide-y-0 sm:divide-x">
               {quickPicks.map((track) => (
                 <button
@@ -257,7 +257,7 @@ export default function Dashboard({
                   <span className="flex-1 text-[13px] font-semibold leading-snug text-white truncate">
                     {track.title}
                   </span>
-                  <span className="material-symbols-outlined text-[18px] text-[#F59E0B] opacity-0 group-hover:opacity-100 transition-opacity">
+                  <span className="material-symbols-outlined text-[18px] text-white opacity-0 group-hover:opacity-100 transition-opacity">
                     play_circle
                   </span>
                 </button>
@@ -270,12 +270,12 @@ export default function Dashboard({
       {!isOnline && quickPicks.length === 0 && (
         <div
           className="rounded-[12px] p-6 text-center my-4"
-          style={{ background: 'rgba(31,31,36,0.6)', border: '0.5px solid rgba(255,255,255,0.08)' }}
+          style={{ background: 'rgba(26,26,30,0.6)', border: '0.5px solid rgba(255,255,255,0.10)' }}
         >
           <span className="material-symbols-outlined text-[40px] block mb-2"
-            style={{ color: 'rgba(240,240,245,0.3)' }}>cloud_off</span>
+            style={{ color: 'rgba(255,255,255,0.3)' }}>cloud_off</span>
           <h3 className="text-[15px] font-bold text-white mb-1">You're Offline</h3>
-          <p className="text-[13px]" style={{ color: 'rgba(240,240,245,0.50)' }}>
+          <p className="text-[13px]" style={{ color: 'rgba(255,255,255,0.50)' }}>
             Import local audio files to listen anywhere.
           </p>
         </div>

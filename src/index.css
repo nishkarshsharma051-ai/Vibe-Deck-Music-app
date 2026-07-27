@@ -8,38 +8,32 @@
 .h-playback-height { height: 88px !important; }
 
 /* ─────────────────────────────────────────────────────────
-   VibeDeck Signature Theme: Liquid Amber Gold & Obsidian Glass
-   Apple HIG material standard + Custom Luxury Branding
+   VibeDeck Monochrome Titanium & Ice White Palette
+   Stealth OLED Black + Crisp Ice White Accents
 ───────────────────────────────────────────────────────── */
 :root {
-  /* Signature VibeDeck Amber Gold Palette */
-  --amber-primary:      #F59E0B;
-  --amber-light:        #FBBF24;
-  --amber-dark:         #D97706;
-  --amber-glow:         rgba(245, 158, 11, 0.22);
-  --amber-muted:        rgba(245, 158, 11, 0.12);
+  /* Crisp Ice White Accent */
+  --titanium-white:     #FFFFFF;
+  --titanium-silver:    #E2E8F0;
+  --titanium-slate:     #94A3B8;
+  --titanium-glow:      rgba(255, 255, 255, 0.15);
+  --titanium-muted:     rgba(255, 255, 255, 0.08);
 
-  /* System Support Colors */
-  --apple-blue:         #0A84FF;
-  --apple-purple:       #BF5AF2;
-  --apple-green:        #32D74B;
-  --apple-pink:         #FF375F;
-
-  /* Obsidian Glass Surfaces */
-  --bg-primary:         #070709;
-  --bg-secondary:       #131316;
-  --bg-tertiary:        #1F1F24;
-  --bg-quaternary:      #2A2A30;
+  /* OLED Pure Black & Dark Charcoal Surfaces */
+  --bg-primary:         #000000;
+  --bg-secondary:       #121215;
+  --bg-tertiary:        #1A1A1E;
+  --bg-quaternary:      #26262B;
 
   /* Typography Labels */
   --label-primary:      #FFFFFF;
-  --label-secondary:    rgba(240, 240, 245, 0.65);
-  --label-tertiary:     rgba(240, 240, 245, 0.35);
-  --label-quaternary:   rgba(240, 240, 245, 0.18);
+  --label-secondary:    rgba(255, 255, 255, 0.65);
+  --label-tertiary:     rgba(255, 255, 255, 0.35);
+  --label-quaternary:   rgba(255, 255, 255, 0.18);
 
   /* Hairline Borders */
-  --separator:          rgba(245, 158, 11, 0.12);
-  --separator-subtle:   rgba(255, 255, 255, 0.08);
+  --separator:          rgba(255, 255, 255, 0.12);
+  --separator-subtle:   rgba(255, 255, 255, 0.06);
 
   /* Standard Radii */
   --radius-sm:          6px;
@@ -48,10 +42,10 @@
   --radius-xl:          16px;
 
   /* Aliases */
-  --primary:            var(--amber-primary);
+  --primary:            var(--titanium-white);
   --background:         var(--bg-primary);
   --surface:            var(--bg-secondary);
-  --theme-glow:         var(--amber-glow);
+  --theme-glow:         var(--titanium-glow);
 }
 
 /* ─────────────────────────────────────────────────────────
@@ -92,12 +86,12 @@ button, a, [role="button"] {
 }
 
 /* ─────────────────────────────────────────────────────────
-   Glass Materials
+   Titanium Frosted Glass
 ───────────────────────────────────────────────────────── */
-.amber-glass {
-  background: rgba(19, 19, 22, 0.85);
-  backdrop-filter: blur(40px) saturate(190%);
-  -webkit-backdrop-filter: blur(40px) saturate(190%);
+.titanium-glass {
+  background: rgba(18, 18, 21, 0.85);
+  backdrop-filter: blur(40px) saturate(180%);
+  -webkit-backdrop-filter: blur(40px) saturate(180%);
   border: 0.5px solid var(--separator);
 }
 
@@ -120,14 +114,14 @@ button, a, [role="button"] {
   transform: translateY(0) scale(1);
 }
 
-/* Custom Amber Scrollbar */
+/* Custom Minimal Scrollbar */
 ::-webkit-scrollbar { width: 6px; height: 6px; }
 ::-webkit-scrollbar-track { background: transparent; }
 ::-webkit-scrollbar-thumb {
-  background: rgba(245, 158, 11, 0.30);
+  background: rgba(255, 255, 255, 0.20);
   border-radius: 9999px;
 }
-::-webkit-scrollbar-thumb:hover { background: rgba(245, 158, 11, 0.60); }
+::-webkit-scrollbar-thumb:hover { background: rgba(255, 255, 255, 0.45); }
 
 .hide-scrollbar::-webkit-scrollbar { display: none; }
 .hide-scrollbar {
@@ -143,12 +137,12 @@ button, a, [role="button"] {
 .shelf-scroll > * { scroll-snap-align: start; }
 
 .ios-grouped-cell {
-  background: rgba(31, 31, 36, 0.65);
+  background: rgba(26, 26, 30, 0.65);
   border-bottom: 0.5px solid var(--separator-subtle);
   transition: background-color 0.15s ease;
 }
 .ios-grouped-cell:hover {
-  background: rgba(245, 158, 11, 0.10);
+  background: rgba(255, 255, 255, 0.08);
 }
 .ios-grouped-cell:last-child {
   border-bottom: none;
@@ -180,6 +174,6 @@ button, a, [role="button"] {
 
 input:focus, textarea:focus, select:focus {
   outline: none;
-  box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.35);
-  border-color: var(--amber-primary) !important;
+  box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.35);
+  border-color: #FFFFFF !important;
 }
