@@ -1,42 +1,55 @@
-/* Top bar safe area padding for native status bar clearance */
+/* ─────────────────────────────────────────────────────────
+   App.css — Apple Material Layout Tokens
+   Matches iOS Safe Area + NSVisualEffectMaterial patterns
+───────────────────────────────────────────────────────── */
+
+/* Status-bar safe area for the topbar */
 .vibedeck-topbar {
   padding-top: calc(14px + env(safe-area-inset-top, 0px)) !important;
 }
 
-/* Bottom navigation height accounting for device home indicators */
+/* iOS home-indicator safe area for bottom nav */
 .mobile-nav {
-  height: calc(4.25rem + 10px + env(safe-area-inset-bottom, 0px)) !important;
-  padding-bottom: calc(10px + env(safe-area-inset-bottom, 0px)) !important;
+  height: calc(3.5rem + 8px + env(safe-area-inset-bottom, 0px)) !important;
+  padding-bottom: calc(8px + env(safe-area-inset-bottom, 0px)) !important;
 }
 
-/* Playback footer positioning — sits directly above the bottom nav */
+/* Playback footer — sits above bottom nav on mobile */
 footer.playback-footer {
   background: transparent !important;
   border-top: none !important;
-  bottom: calc(4.25rem + 10px + env(safe-area-inset-bottom, 0px)) !important;
+  bottom: calc(3.5rem + 8px + env(safe-area-inset-bottom, 0px)) !important;
   padding: 0 !important;
 }
 
-/* Mini player card styling */
+/* ─── Mini Player — Apple Dark Material ─── */
 .vibedeck-mini-player {
-  margin-bottom: 8px;
-  background: rgba(24, 24, 24, 0.96) !important;
-  backdrop-filter: blur(20px);
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+  margin: 0 8px 8px;
+  border-radius: 16px;
+  background: rgba(28, 28, 30, 0.96) !important;
+  backdrop-filter: blur(40px) saturate(180%);
+  -webkit-backdrop-filter: blur(40px) saturate(180%);
+  border: 0.5px solid rgba(84, 84, 88, 0.40) !important;
+  box-shadow:
+    0 4px 24px rgba(0, 0, 0, 0.50),
+    0 1px 0 rgba(255, 255, 255, 0.04) inset;
 }
 
-/* Desktop overrides — different footer and header layout on wider screens */
+/* ─── Desktop Footer (full-width player bar) ─── */
 @media (min-width: 768px) {
   footer.playback-footer {
     bottom: 0 !important;
-    background: #000 !important;
-    border-top: 1px solid #282828 !important;
+    background: rgba(0, 0, 0, 0.88) !important;
+    border-top: 0.5px solid rgba(84, 84, 88, 0.35) !important;
+    backdrop-filter: blur(40px) saturate(180%) !important;
+    -webkit-backdrop-filter: blur(40px) saturate(180%) !important;
+    padding: 0 !important;
   }
 }
 
-/* Sound bar animation for NowPlayingToast */
+/* ─── Sound bar animation (NowPlayingToast) ─── */
 @keyframes soundBar {
-  0%, 100% { transform: scaleY(0.4); }
+  0%, 100% { transform: scaleY(0.35); }
   50%       { transform: scaleY(1); }
 }
 .animate-soundBar {
@@ -44,32 +57,16 @@ footer.playback-footer {
   transform-origin: bottom;
 }
 
-/* Slide-up animation for ShareCard */
+/* ─── Slide-up (ShareCard / Toast) ─── */
 @keyframes slideUp {
   from { transform: translateY(100%); opacity: 0; }
   to   { transform: translateY(0);    opacity: 1; }
 }
 .animate-slideUp {
-  animation: slideUp 0.35s cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation: slideUp 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
 }
 
-/* Custom sleek scrollbar for web browsers */
-::-webkit-scrollbar {
-  width: 6px;
-  height: 6px;
-}
-::-webkit-scrollbar-track {
-  background: transparent;
-}
-::-webkit-scrollbar-thumb {
-  background: rgba(255, 255, 255, 0.15);
-  border-radius: 9999px;
-}
-::-webkit-scrollbar-thumb:hover {
-  background: rgba(255, 255, 255, 0.3);
-}
-
-/* Utility class to hide scrollbars cleanly while retaining scroll behavior */
+/* ─── Utility: no scrollbar but scrollable ─── */
 .hide-scrollbar {
   -ms-overflow-style: none;
   scrollbar-width: none;

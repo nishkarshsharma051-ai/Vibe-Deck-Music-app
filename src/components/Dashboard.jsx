@@ -1,12 +1,12 @@
 import React, { useEffect, useMemo, useState, useCallback } from 'react';
 
 const MOODS = [
-  { id: 'chill',    label: 'Chill',     icon: 'nights_stay',      query: 'chill lofi relax'       },
-  { id: 'energy',   label: 'Energetic', icon: 'bolt',             query: 'energetic pump workout'  },
-  { id: 'focus',    label: 'Focus',     icon: 'self_improvement', query: 'study focus concentration'},
-  { id: 'party',    label: 'Party',     icon: 'celebration',      query: 'party dance hits'         },
-  { id: 'romance',  label: 'Romance',   icon: 'favorite',         query: 'love romantic songs'      },
-  { id: 'sad',      label: 'Sad',       icon: 'cloud_queue',       query: 'sad emotional heartbreak' },
+  { id: 'chill',   label: 'Chill',    icon: 'nights_stay',      query: 'chill lofi relax',           color: '#5AC8FA' },
+  { id: 'energy',  label: 'Energy',   icon: 'bolt',             query: 'energetic pump workout',     color: '#FF9F0A' },
+  { id: 'focus',   label: 'Focus',    icon: 'self_improvement', query: 'study focus concentration',  color: '#32D74B' },
+  { id: 'party',   label: 'Party',    icon: 'celebration',      query: 'party dance hits',           color: '#BF5AF2' },
+  { id: 'romance', label: 'Romance',  icon: 'favorite',         query: 'love romantic songs',        color: '#FF375F' },
+  { id: 'sad',     label: 'Sad',      icon: 'cloud_queue',      query: 'sad emotional heartbreak',   color: '#64D2FF' },
 ];
 
 function isTrackPlayable(track) {
@@ -18,28 +18,42 @@ function isTrackPlayable(track) {
   );
 }
 
+/* ── Apple Music-style horizontal shelf ── */
 function Shelf({ title, items, onPlayTrack }) {
   return (
-    <section className="space-y-3">
-      <div className="flex items-center justify-between">
-        <h2 className="text-xl font-black tracking-tight text-white">{title}</h2>
+    <section className="space-y-3 animate-cardReveal">
+      <div className="flex items-center justify-between px-0.5">
+        <h2 className="text-[17px] font-bold tracking-tight text-white">{title}</h2>
+        <button className="text-[13px] font-semibold text-[#0A84FF] hover:opacity-70 transition-opacity">
+          See All
+        </button>
       </div>
-      <div className="shelf-scroll flex gap-4 overflow-x-auto pb-1 hide-scrollbar">
-        {items.map((track) => (
+      <div className="shelf-scroll flex gap-3 overflow-x-auto pb-2 hide-scrollbar -mx-1 px-1">
+        {items.map((track, idx) => (
           <button
             key={track.id}
             onClick={() => onPlayTrack(track, items)}
-            className="group w-36 shrink-0 text-left active:scale-[0.98] cursor-pointer"
+            className="track-card group w-[148px] shrink-0 text-left cursor-pointer apple-press"
+            style={{ animationDelay: `${idx * 40}ms` }}
           >
-            <div className="relative aspect-square overflow-hidden rounded-2xl bg-[#181818] shadow-xl">
-              <img src={track.coverUrl} alt={track.title} className="h-full w-full object-cover" />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/35 to-transparent" />
-              <div className="absolute bottom-3 right-3 flex h-11 w-11 items-center justify-center rounded-full bg-[#38bdf8] text-black opacity-100 shadow-[0_10px_20px_rgba(56,189,248,0.32)]">
-                <span className="material-symbols-outlined font-black">play_arrow</span>
+            {/* Album art */}
+            <div className="relative aspect-square overflow-hidden rounded-[12px] bg-[#1C1C1E] shadow-xl group-hover:shadow-2xl transition-shadow duration-200">
+              <img
+                src={track.coverUrl}
+                alt={track.title}
+                className="h-full w-full object-cover"
+                loading="lazy"
+              />
+              {/* Subtle gradient overlay */}
+              <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent" />
+              {/* Play button */}
+              <div className="play-btn absolute bottom-2 right-2 flex h-9 w-9 items-center justify-center rounded-full shadow-lg"
+                style={{ background: 'rgba(10, 132, 255, 0.92)', backdropFilter: 'blur(8px)' }}>
+                <span className="material-symbols-outlined text-white font-black text-[16px]">play_arrow</span>
               </div>
             </div>
-            <p className="mt-3 truncate text-sm font-semibold text-white">{track.title}</p>
-            <p className="truncate text-xs text-[#b3b3b3]">{track.artist}</p>
+            <p className="mt-2 truncate text-[13px] font-semibold text-white leading-snug">{track.title}</p>
+            <p className="truncate text-[12px]" style={{ color: 'rgba(235,235,245,0.50)' }}>{track.artist}</p>
           </button>
         ))}
       </div>
@@ -49,23 +63,31 @@ function Shelf({ title, items, onPlayTrack }) {
 
 function AlbumShelf({ title, items, onPlayAlbum }) {
   return (
-    <section className="space-y-3">
-      <div className="flex items-center justify-between">
-        <h2 className="text-xl font-black tracking-tight text-white">{title}</h2>
+    <section className="space-y-3 animate-cardReveal">
+      <div className="flex items-center justify-between px-0.5">
+        <h2 className="text-[17px] font-bold tracking-tight text-white">{title}</h2>
+        <button className="text-[13px] font-semibold text-[#0A84FF] hover:opacity-70 transition-opacity">
+          See All
+        </button>
       </div>
-      <div className="shelf-scroll flex gap-4 overflow-x-auto pb-1 hide-scrollbar">
+      <div className="shelf-scroll flex gap-3 overflow-x-auto pb-2 hide-scrollbar -mx-1 px-1">
         {items.map((album, idx) => (
           <button
             key={idx}
             onClick={() => onPlayAlbum && onPlayAlbum(album)}
-            className="group w-36 shrink-0 text-left active:scale-[0.98] cursor-pointer"
+            className="track-card group w-[148px] shrink-0 text-left cursor-pointer apple-press"
           >
-            <div className="relative aspect-square overflow-hidden rounded-2xl bg-[#181818] shadow-xl">
-              <img src={album.img} alt={album.name} className="h-full w-full object-cover" />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/35 to-transparent" />
+            <div className="relative aspect-square overflow-hidden rounded-[12px] bg-[#1C1C1E] shadow-xl group-hover:shadow-2xl transition-shadow duration-200">
+              <img
+                src={album.img}
+                alt={album.name}
+                className="h-full w-full object-cover"
+                loading="lazy"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent" />
             </div>
-            <p className="mt-3 truncate text-sm font-semibold text-white">{album.name}</p>
-            <p className="truncate text-xs text-[#b3b3b3]">{album.artist}</p>
+            <p className="mt-2 truncate text-[13px] font-semibold text-white leading-snug">{album.name}</p>
+            <p className="truncate text-[12px]" style={{ color: 'rgba(235,235,245,0.50)' }}>{album.artist}</p>
           </button>
         ))}
       </div>
@@ -73,7 +95,8 @@ function AlbumShelf({ title, items, onPlayAlbum }) {
   );
 }
 
-function MoodChips({ onPlayTrack, accentColor }) {
+/* ── Mood chips — Apple pill style ── */
+function MoodChips({ onPlayTrack }) {
   const [activeMood, setActiveMood] = useState(null);
   const [loadingMood, setLoadingMood] = useState(null);
 
@@ -83,7 +106,6 @@ function MoodChips({ onPlayTrack, accentColor }) {
     setLoadingMood(mood.id);
 
     try {
-      // Try Gaana first
       const GAANA_API_BASE = 'https://gaana-api-pied.vercel.app/api';
       let tracks = [];
 
@@ -93,26 +115,17 @@ function MoodChips({ onPlayTrack, accentColor }) {
           const json = await res.json();
           if (json.data?.length) {
             tracks = json.data.map(item => ({
-              id: `gaana-${item.track_id}`,
-              trackId: item.track_id,
-              seoKey: item.seokey,
-              title: item.title,
-              artist: item.artists || 'Unknown Artist',
-              album: item.album || '',
-              duration: item.duration ? Number(item.duration) : 240,
-              coverUrl: item.artworkUrl || '',
-              url: '', hlsUrl: '',
-              genre: mood.label,
-              source: 'gaana',
-              playbackMode: 'audio',
-              isItunes: false,
-              youtubeId: null,
+              id: `gaana-${item.track_id}`, trackId: item.track_id, seoKey: item.seokey,
+              title: item.title, artist: item.artists || 'Unknown Artist',
+              album: item.album || '', duration: item.duration ? Number(item.duration) : 240,
+              coverUrl: item.artworkUrl || '', url: '', hlsUrl: '',
+              genre: mood.label, source: 'gaana', playbackMode: 'audio',
+              isItunes: false, youtubeId: null,
             }));
           }
         }
       } catch { /* fall through */ }
 
-      // Fallback to JioSaavn
       if (!tracks.length) {
         const res = await fetch(`https://saavn.sumit.co/api/search/songs?query=${encodeURIComponent(mood.query)}&limit=12`);
         if (res.ok) {
@@ -120,28 +133,21 @@ function MoodChips({ onPlayTrack, accentColor }) {
           if (data?.data?.results?.length) {
             tracks = data.data.results.map(item => ({
               id: `jiosaavn-${item.id}`,
-              title: item.name?.replace(/&quot;/g, '"').replace(/&amp;/g, '&').replace(/&#039;/g, "'") || '',
+              title: item.name?.replace(/&quot;/g,'"').replace(/&amp;/g,'&').replace(/&#039;/g,"'") || '',
               artist: item.artists?.primary?.map(a => a.name).join(', ') || 'Unknown Artist',
               album: item.album?.name || '',
               coverUrl: item.image?.find(i => i.quality === '500x500')?.url || item.image?.[0]?.url || '',
               url: item.downloadUrl?.find(d => d.quality === '320kbps')?.url || item.downloadUrl?.[0]?.url || '',
               duration: item.duration ? Number(item.duration) : 240,
-              genre: mood.label,
-              source: 'jiosaavn',
-              playbackMode: 'audio',
-              isItunes: false,
-              youtubeId: null,
+              genre: mood.label, source: 'jiosaavn', playbackMode: 'audio',
+              isItunes: false, youtubeId: null,
             }));
           }
         }
       }
 
       if (tracks.length > 0 && typeof onPlayTrack === 'function') {
-        try {
-          await onPlayTrack(tracks[0], tracks);
-        } catch (playErr) {
-          console.warn('Failed to start mood playback:', playErr);
-        }
+        await onPlayTrack(tracks[0], tracks);
       }
     } catch (err) {
       console.warn('Mood fetch failed:', err);
@@ -150,37 +156,41 @@ function MoodChips({ onPlayTrack, accentColor }) {
     }
   }, [loadingMood, onPlayTrack]);
 
-  const accentH = accentColor?.h ?? 200;
-  const accentS = Math.min(accentColor?.s ?? 80, 65);
-
   return (
     <section className="space-y-3">
-      <h2 className="text-xl font-black tracking-tight text-white">Play by mood</h2>
-      <div className="flex gap-2.5 overflow-x-auto pb-1 hide-scrollbar">
+      <h2 className="text-[17px] font-bold tracking-tight text-white px-0.5">Play by Mood</h2>
+      <div className="grid grid-cols-3 gap-2 sm:grid-cols-6">
         {MOODS.map((mood) => {
           const isActive = activeMood === mood.id;
           const isLoading = loadingMood === mood.id;
-
           return (
             <button
               key={mood.id}
               onClick={() => handleMoodClick(mood)}
               disabled={!!loadingMood}
-              className={`flex items-center gap-2 shrink-0 px-4 py-2.5 rounded-full text-sm font-bold transition-all duration-200 active:scale-95 border
-                ${isActive
-                  ? 'text-black scale-105 shadow-lg'
-                  : 'bg-white/8 border-white/10 text-white/80 hover:bg-white/14 hover:text-white'
-                }`}
-              style={isActive ? {
-                background: `hsl(${accentH}, ${accentS}%, 58%)`,
-                borderColor: `hsl(${accentH}, ${accentS}%, 58%)`,
-                boxShadow: `0 8px 24px hsla(${accentH}, ${accentS}%, 50%, 0.35)`,
-              } : {}}
+              className="relative flex flex-col items-center gap-1.5 py-3.5 px-2 rounded-[14px] transition-all duration-150 cursor-pointer apple-press overflow-hidden"
+              style={{
+                background: isActive
+                  ? `${mood.color}22`
+                  : 'rgba(44, 44, 46, 0.70)',
+                border: isActive
+                  ? `1px solid ${mood.color}55`
+                  : '1px solid rgba(84, 84, 88, 0.30)',
+                boxShadow: isActive ? `0 0 0 1px ${mood.color}30` : 'none',
+              }}
             >
-              <span className={`material-symbols-outlined text-base ${isLoading ? 'animate-spin' : ''}`}>
+              <span
+                className={`material-symbols-outlined text-[20px] ${isLoading ? 'animate-spin' : ''}`}
+                style={{ color: isActive ? mood.color : 'rgba(235,235,245,0.70)', fontVariationSettings: "'FILL' 1" }}
+              >
                 {isLoading ? 'autorenew' : mood.icon}
               </span>
-              {mood.label}
+              <span
+                className="text-[11px] font-semibold tracking-wide"
+                style={{ color: isActive ? mood.color : 'rgba(235,235,245,0.70)' }}
+              >
+                {mood.label}
+              </span>
             </button>
           );
         })}
@@ -190,104 +200,125 @@ function MoodChips({ onPlayTrack, accentColor }) {
 }
 
 export default function Dashboard({
-  onPlayTrack,
-  onPlayAlbum,
-  history = [],
-  recommendations = [],
-  suggestedSongs = [],
-  suggestedAlbums = [],
-  isOnline = true,
-  accentColor = null,
+  onPlayTrack, onPlayAlbum,
+  history = [], recommendations = [],
+  suggestedSongs = [], suggestedAlbums = [],
+  isOnline = true, accentColor = null,
 }) {
-  const [greeting, setGreeting] = useState('Good evening');
+  const [greeting, setGreeting] = useState('Good Evening');
 
   useEffect(() => {
-    const hour = new Date().getHours();
-    if (hour < 12) setGreeting('Good morning');
-    else if (hour < 18) setGreeting('Good afternoon');
-    else setGreeting('Good evening');
+    const h = new Date().getHours();
+    if (h < 12)      setGreeting('Good Morning');
+    else if (h < 17) setGreeting('Good Afternoon');
+    else             setGreeting('Good Evening');
   }, []);
 
-  const quickPicks = useMemo(() => {
-    let base = history.filter(isTrackPlayable);
-    if (!isOnline) base = base.filter(t => t.isLocal);
-    return base.slice(0, 6);
-  }, [history, isOnline]);
+  const quickPicks    = useMemo(() => history.filter(isTrackPlayable).filter(t => !isOnline ? t.isLocal : true).slice(0, 6), [history, isOnline]);
+  const recentlyPlayed = useMemo(() => history.filter(isTrackPlayable).filter(t => !isOnline ? t.isLocal : true).slice(0, 8), [history, isOnline]);
 
-  const recentlyPlayed = useMemo(() => {
-    let base = history.filter(isTrackPlayable);
-    if (!isOnline) base = base.filter(t => t.isLocal);
-    return base.slice(0, 8);
-  }, [history, isOnline]);
-
-  // Build hero gradient dynamically from accentColor
+  /* Dynamic hero gradient from album art color */
   const heroBg = accentColor
-    ? `linear-gradient(180deg, hsl(${accentColor.h}, ${Math.min(accentColor.s, 55)}%, 22%) 0%, hsl(${accentColor.h}, ${Math.min(accentColor.s, 35)}%, 10%) 28%, #121212 55%, #000 80%)`
-    : 'linear-gradient(180deg,#0c4a6e 0%,#082f49 14%,#121212 28%,#000 62%)';
+    ? `linear-gradient(180deg, hsl(${accentColor.h},${Math.min(accentColor.s,40)}%,15%) 0%, #000000 40%)`
+    : 'linear-gradient(180deg, #1A1A1F 0%, #000000 35%)';
 
   return (
     <div
-      className="min-h-full px-4 pb-28 pt-2 text-white transition-[background] duration-700"
-      style={{ background: heroBg }}
+      className="min-h-full px-4 pb-36 pt-1 text-white"
+      style={{ background: heroBg, transition: 'background 0.8s ease' }}
     >
-      <div className="mb-6">
-        <h1 className="mt-1 text-[2.15rem] font-black leading-none tracking-tight">{greeting}</h1>
+      {/* ── Greeting ── */}
+      <div className="mb-5">
+        <h1
+          className="text-[32px] font-black tracking-tight leading-tight"
+          style={{ letterSpacing: '-0.5px' }}
+        >
+          {greeting}
+        </h1>
       </div>
 
+      {/* ── Offline badge ── */}
       {!isOnline && (
-        <div className="mb-6 inline-flex items-center gap-2 rounded-full bg-red-500/10 border border-red-500/20 px-3.5 py-1 text-xs text-red-400">
-          <span className="w-2 h-2 rounded-full bg-red-400 animate-pulse" />
-          Offline Mode
+        <div className="mb-5 inline-flex items-center gap-2 rounded-full px-3 py-1 text-[12px] font-semibold"
+          style={{ background: 'rgba(255,69,58,0.12)', color: '#FF453A', border: '0.5px solid rgba(255,69,58,0.25)' }}>
+          <span className="w-1.5 h-1.5 rounded-full bg-[#FF453A] animate-pulse" />
+          Offline
         </div>
       )}
 
+      {/* ── Quick Picks ── */}
       {quickPicks.length > 0 && (
-        <section className="mb-10 grid grid-cols-1 gap-3 sm:grid-cols-2">
-          {quickPicks.map((track) => (
-            <button
-              key={track.id}
-              onClick={() => onPlayTrack(track, quickPicks)}
-              className="flex min-h-[64px] items-center overflow-hidden rounded-md bg-white/10 text-left backdrop-blur-sm active:scale-[0.98] active:bg-white/14 cursor-pointer"
-            >
-              <img src={track.coverUrl} alt={track.title} className="h-16 w-16 object-cover" />
-              <span className="px-3 text-[0.95rem] font-bold leading-tight text-white line-clamp-2">{track.title}</span>
-            </button>
-          ))}
+        <section className="mb-7 animate-cardReveal">
+          <div className="grid grid-cols-1 gap-2 sm:grid-cols-2">
+            {quickPicks.map((track, idx) => (
+              <button
+                key={track.id}
+                onClick={() => onPlayTrack(track, quickPicks)}
+                className="quick-pick group flex min-h-[56px] items-center overflow-hidden rounded-[10px] text-left cursor-pointer apple-press transition-all duration-150"
+                style={{
+                  background: 'rgba(44, 44, 46, 0.85)',
+                  border: '0.5px solid rgba(84, 84, 88, 0.30)',
+                  animationDelay: `${idx * 35}ms`,
+                }}
+              >
+                <div className="relative h-[56px] w-[56px] flex-shrink-0 overflow-hidden">
+                  <img src={track.coverUrl} alt={track.title} className="h-full w-full object-cover" />
+                </div>
+                <span className="flex-1 px-3 text-[14px] font-semibold leading-tight text-white line-clamp-2">
+                  {track.title}
+                </span>
+                <div
+                  className="opacity-0 group-hover:opacity-100 mr-3 flex items-center justify-center w-7 h-7 rounded-full transition-opacity duration-150"
+                  style={{ background: '#0A84FF' }}
+                >
+                  <span className="material-symbols-outlined text-white font-black text-[13px]">play_arrow</span>
+                </div>
+              </button>
+            ))}
+          </div>
         </section>
       )}
 
+      {/* ── Offline empty state ── */}
       {!isOnline && quickPicks.length === 0 && (
-        <div className="rounded-3xl border border-white/5 bg-white/5 p-6 text-center my-6">
-          <span className="material-symbols-outlined text-4xl text-white/40 mb-3">cloud_off</span>
-          <h3 className="text-lg font-black">You are Offline</h3>
-          <p className="text-sm text-[#b3b3b3] mt-2">
-            No offline history yet. Import audio files in your Library tab to play them anywhere, anytime.
+        <div
+          className="rounded-2xl p-8 text-center my-4"
+          style={{ background: 'rgba(44,44,46,0.6)', border: '0.5px solid rgba(84,84,88,0.3)' }}
+        >
+          <span className="material-symbols-outlined text-[44px] block mb-3"
+            style={{ color: 'rgba(235,235,245,0.3)' }}>cloud_off</span>
+          <h3 className="text-[17px] font-bold text-white mb-1">You're Offline</h3>
+          <p className="text-[14px]" style={{ color: 'rgba(235,235,245,0.50)' }}>
+            Import local audio files to listen anywhere.
           </p>
         </div>
       )}
 
-      {/* 🎵 Mood Quick-Play */}
+      {/* ── Mood chips ── */}
       {isOnline && (
-        <div className="mt-8">
+        <div className="mb-7">
           <MoodChips onPlayTrack={onPlayTrack} accentColor={accentColor} />
         </div>
       )}
 
+      {/* ── Suggested songs ── */}
       {isOnline && suggestedSongs.length > 0 && (
-        <div className="mt-8">
-          <Shelf title="Suggested songs" items={suggestedSongs} onPlayTrack={onPlayTrack} />
+        <div className="mb-7">
+          <Shelf title="Suggested for You" items={suggestedSongs} onPlayTrack={onPlayTrack} />
         </div>
       )}
 
+      {/* ── Suggested albums ── */}
       {isOnline && suggestedAlbums.length > 0 && (
-        <div className="mt-8">
-          <AlbumShelf title="Suggested albums" items={suggestedAlbums} onPlayAlbum={onPlayAlbum} />
+        <div className="mb-7">
+          <AlbumShelf title="Featured Albums" items={suggestedAlbums} onPlayAlbum={onPlayAlbum} />
         </div>
       )}
 
+      {/* ── Recently played ── */}
       {recentlyPlayed.length > 0 && (
-        <div className="mt-8">
-          <Shelf title="Recently played" items={recentlyPlayed} onPlayTrack={onPlayTrack} />
+        <div className="mb-7">
+          <Shelf title="Recently Played" items={recentlyPlayed} onPlayTrack={onPlayTrack} />
         </div>
       )}
     </div>

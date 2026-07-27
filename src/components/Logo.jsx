@@ -1,7 +1,7 @@
 import React from 'react';
 
 /**
- * Premium VibeDeck Official Soundwave Brand Logo
+ * VibeDeck Logo — Apple Blue system color
  */
 export default function Logo({ size = 'md', className = '', animated = false }) {
   const dimensions = {
@@ -13,86 +13,76 @@ export default function Logo({ size = 'md', className = '', animated = false }) 
 
   return (
     <div className={`flex items-center justify-center select-none ${dimensions[size]} ${className}`}>
-      <svg 
-        viewBox="0 0 100 100" 
-        fill="none" 
+      <svg
+        viewBox="0 0 100 100"
+        fill="none"
         xmlns="http://www.w3.org/2000/svg"
-        className="w-full h-full transition-transform duration-300 hover:scale-[1.05]"
+        className="w-full h-full"
       >
         <defs>
+          {/* Apple Blue gradient — system blue to teal */}
           <linearGradient id="vibedeck-logo-grad" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stopColor="#38bdf8" />
-            <stop offset="50%" stopColor="#0ea5e9" />
-            <stop offset="100%" stopColor="#6366f1" />
+            <stop offset="0%"   stopColor="#0A84FF" />
+            <stop offset="50%"  stopColor="#0066CC" />
+            <stop offset="100%" stopColor="#5AC8FA" />
           </linearGradient>
           <filter id="logo-glow" x="-20%" y="-20%" width="140%" height="140%">
-            <feGaussianBlur stdDeviation="3" result="blur" />
+            <feGaussianBlur stdDeviation="2" result="blur" />
             <feComposite in="SourceGraphic" in2="blur" operator="over" />
           </filter>
         </defs>
-        
-        {/* Outer Deck Ring */}
-        <circle 
-          cx="50" 
-          cy="50" 
-          r="42" 
-          stroke="url(#vibedeck-logo-grad)" 
-          strokeWidth="3.5" 
+
+        {/* Outer ring */}
+        <circle
+          cx="50" cy="50" r="42"
+          stroke="url(#vibedeck-logo-grad)"
+          strokeWidth="3"
           strokeLinecap="round"
           className={animated ? "animate-pulseGlow" : ""}
           style={{ transformOrigin: 'center' }}
         />
 
-        {/* Vinyl Groove Ring */}
-        <circle 
-          cx="50" 
-          cy="50" 
-          r="33" 
-          stroke="white" 
-          strokeWidth="1.2" 
-          strokeOpacity="0.15"
-          strokeDasharray="4 8"
+        {/* Inner orbit ring */}
+        <circle
+          cx="50" cy="50" r="33"
+          stroke="white"
+          strokeWidth="1"
+          strokeOpacity="0.10"
+          strokeDasharray="3 7"
           className={animated ? "animate-orbitSpin" : ""}
-          style={{ transformOrigin: 'center', animationDuration: '24s' }}
+          style={{ transformOrigin: 'center', animationDuration: '22s' }}
         />
 
-        {/* Center Vinyl Label Core */}
-        <circle 
-          cx="50" 
-          cy="50" 
-          r="18" 
-          fill="url(#vibedeck-logo-grad)" 
-          fillOpacity="0.08"
+        {/* Center core */}
+        <circle
+          cx="50" cy="50" r="16"
+          fill="url(#vibedeck-logo-grad)"
+          fillOpacity="0.10"
           stroke="url(#vibedeck-logo-grad)"
           strokeWidth="1.5"
         />
 
-        {/* Premium Bouncing Equalizer Waveform */}
+        {/* Equalizer bars */}
         <g filter="url(#logo-glow)">
-          {/* Bar 1 */}
-          <rect x="36" y="42" width="4.2" height="16" rx="2.1" fill="url(#vibedeck-logo-grad)"
+          <rect x="36" y="42" width="4" height="16" rx="2" fill="url(#vibedeck-logo-grad)"
             className={animated ? "animate-soundwave-1" : ""}
-            style={{ transformOrigin: '38.1px 50px' }}
+            style={{ transformOrigin: '38px 50px' }}
           />
-          {/* Bar 2 */}
-          <rect x="43" y="34" width="4.2" height="32" rx="2.1" fill="url(#vibedeck-logo-grad)"
+          <rect x="43" y="34" width="4" height="32" rx="2" fill="url(#vibedeck-logo-grad)"
             className={animated ? "animate-soundwave-2" : ""}
-            style={{ transformOrigin: '45.1px 50px' }}
+            style={{ transformOrigin: '45px 50px' }}
           />
-          {/* Bar 3 (Center) */}
-          <rect x="50" y="26" width="4.2" height="48" rx="2.1" fill="url(#vibedeck-logo-grad)"
+          <rect x="50" y="27" width="4" height="46" rx="2" fill="url(#vibedeck-logo-grad)"
             className={animated ? "animate-soundwave-3" : ""}
-            style={{ transformOrigin: '52.1px 50px' }}
+            style={{ transformOrigin: '52px 50px' }}
           />
-          {/* Bar 4 */}
-          <rect x="57" y="34" width="4.2" height="32" rx="2.1" fill="url(#vibedeck-logo-grad)"
+          <rect x="57" y="34" width="4" height="32" rx="2" fill="url(#vibedeck-logo-grad)"
             className={animated ? "animate-soundwave-4" : ""}
-            style={{ transformOrigin: '59.1px 50px' }}
+            style={{ transformOrigin: '59px 50px' }}
           />
-          {/* Bar 5 */}
-          <rect x="64" y="42" width="4.2" height="16" rx="2.1" fill="url(#vibedeck-logo-grad)"
+          <rect x="64" y="42" width="4" height="16" rx="2" fill="url(#vibedeck-logo-grad)"
             className={animated ? "animate-soundwave-5" : ""}
-            style={{ transformOrigin: '66.1px 50px' }}
+            style={{ transformOrigin: '66px 50px' }}
           />
         </g>
       </svg>

@@ -1402,15 +1402,25 @@ export default function App() {
       <div className="grid-overlay"></div>
 
       {isLoading && (
-        <div 
-          className={`absolute inset-0 z-[100] flex flex-col items-center justify-center text-white transition-opacity duration-700 ease-in-out ${fadeLoading ? 'opacity-0 pointer-events-none' : 'opacity-100'}`}
-          style={{ backgroundColor: '#072635' }}
+      <div
+          className={`absolute inset-0 z-[100] flex flex-col items-center justify-center text-white transition-opacity duration-500 ease-in-out ${fadeLoading ? 'opacity-0 pointer-events-none' : 'opacity-100'}`}
+          style={{ background: '#000000' }}
         >
-          <div className="flex flex-col items-center gap-4 animate-logoZoomIn">
-            <Logo size="xl" className="text-[#38bdf8]" animated={true} />
-            <h1 className="text-4xl font-black tracking-tight text-white">Vibe Deck</h1>
+          <div className="flex flex-col items-center gap-5 animate-logoZoomIn">
+            <Logo size="xl" animated={true} />
+            <div className="text-center">
+              <h1 className="text-[32px] font-bold tracking-tight text-white" style={{ letterSpacing: '-0.5px' }}>Vibe Deck</h1>
+              <p className="text-[14px] mt-1 font-medium" style={{ color: 'rgba(235,235,245,0.50)' }}>Your music. Your vibe.</p>
+            </div>
+            <div className="flex gap-1.5 mt-1">
+              {[0,1,2].map(i => (
+                <div key={i} className="w-1.5 h-1.5 rounded-full bg-[#0A84FF]"
+                  style={{ animation: `soundwave-${i+1} 1.2s ease-in-out infinite`, animationDelay: `${i * 0.18}s`, transformOrigin: 'bottom' }} />
+              ))}
+            </div>
           </div>
         </div>
+
       )}
 
       {/* Main Content Stage */}
@@ -1422,44 +1432,67 @@ export default function App() {
           paddingBottom: 'calc(12rem + env(safe-area-inset-bottom, 0px))'
         }}
       >
-        <header className="vibedeck-topbar sticky top-0 z-30 border-b border-white/5 bg-[linear-gradient(180deg,rgba(8,47,73,0.96),rgba(0,0,0,0.82))] px-4 pb-3 backdrop-blur-xl md:px-6">
+        <header
+          className="vibedeck-topbar sticky top-0 z-30 px-4 pb-3 md:px-6"
+          style={{
+            background: 'rgba(0, 0, 0, 0.82)',
+            backdropFilter: 'blur(40px) saturate(180%)',
+            WebkitBackdropFilter: 'blur(40px) saturate(180%)',
+            borderBottom: '0.5px solid rgba(84, 84, 88, 0.35)',
+          }}
+        >
           <div className="flex items-center justify-between">
-            <div className="flex items-center gap-3">
-              <div className="flex h-10 w-10 items-center justify-center rounded-full bg-[#38bdf8] text-black shadow-[0_8px_24px_rgba(56,189,248,0.25)] animate-pulse">
-                <span className="material-symbols-outlined text-lg">music_note</span>
+            {/* Brand */}
+            <div className="flex items-center gap-2.5">
+              <div
+                className="flex h-8 w-8 items-center justify-center rounded-[8px] flex-shrink-0"
+                style={{
+                  background: 'linear-gradient(145deg, #0A84FF, #0066CC)',
+                  boxShadow: '0 2px 8px rgba(10, 132, 255, 0.35)',
+                }}
+              >
+                <span className="material-symbols-outlined text-white text-[16px]" style={{ fontVariationSettings: "'FILL' 1" }}>music_note</span>
               </div>
               <div>
                 <div className="flex items-center gap-2">
-                  <h1 className="text-lg font-black tracking-tight text-white">Vibe Deck</h1>
+                  <h1 className="text-[16px] font-bold tracking-tight text-white" style={{ letterSpacing: '-0.2px' }}>Vibe Deck</h1>
                   {!isOnline && (
-                    <span className="text-[9px] font-extrabold uppercase tracking-wider bg-red-500/20 text-red-400 border border-red-500/30 px-2 py-0.5 rounded-full flex items-center gap-1">
-                      <span className="w-1.5 h-1.5 rounded-full bg-red-400 animate-pulse" />
+                    <span className="text-[10px] font-semibold px-2 py-0.5 rounded-full flex items-center gap-1"
+                      style={{ background: 'rgba(255,69,58,0.12)', color: '#FF453A', border: '0.5px solid rgba(255,69,58,0.25)' }}>
+                      <span className="w-1.5 h-1.5 rounded-full bg-[#FF453A] animate-pulse" />
                       Offline
                     </span>
                   )}
                 </div>
-                <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-primary">For you</p>
+                <p className="text-[10px] font-semibold uppercase tracking-widest text-[#0A84FF]">Music</p>
               </div>
             </div>
 
+            {/* Actions */}
             <div className="flex items-center gap-2">
               <button
                 onClick={() => changeTab('settings')}
-                className="flex h-11 w-11 items-center justify-center rounded-full bg-white/10 text-white"
+                className="flex h-9 w-9 items-center justify-center rounded-full transition-all"
+                style={{ background: 'rgba(120,120,128,0.20)', color: 'rgba(235,235,245,0.70)' }}
                 title="Settings"
               >
-                <span className="material-symbols-outlined">settings</span>
+                <span className="material-symbols-outlined text-[18px]">settings</span>
               </button>
               <button
                 onClick={handleAuthClick}
-                className="flex h-11 min-w-11 items-center justify-center rounded-full bg-white/10 px-3 text-xs font-semibold text-white"
+                className="flex h-9 min-w-9 items-center justify-center rounded-full px-3 text-[13px] font-semibold text-white transition-all"
+                style={{
+                  background: user ? 'rgba(120,120,128,0.20)' : '#0A84FF',
+                  boxShadow: user ? 'none' : '0 2px 8px rgba(10,132,255,0.30)',
+                }}
                 title="Account"
               >
-                {user ? (user.displayName?.[0] || user.email?.[0] || 'U') : 'Log in'}
+                {user ? (user.displayName?.[0] || user.email?.[0] || 'U') : 'Sign In'}
               </button>
             </div>
           </div>
         </header>
+
 
         {/* Tab views — content-visibility:hidden keeps rendered DOM in memory, so switching tabs is instant */}
 
@@ -1596,42 +1629,37 @@ export default function App() {
         onIncrementListeningTime={handleIncrementListeningTime}
       />
 
-      {/* Mobile Bottom Tab Navigation (Material 3 style) */}
-      <nav className="fixed bottom-0 left-0 right-0 mobile-nav border-t border-white/8 bg-[#0b0b0b]/96 backdrop-blur-3xl flex items-start justify-around z-[60] px-2">
+      {/* iOS-style bottom tab bar */}
+      <nav
+        className="fixed bottom-0 left-0 right-0 mobile-nav flex items-start justify-around z-[60] px-1"
+        style={{
+          background: 'rgba(0, 0, 0, 0.86)',
+          backdropFilter: 'blur(40px) saturate(180%)',
+          WebkitBackdropFilter: 'blur(40px) saturate(180%)',
+          borderTop: '0.5px solid rgba(84, 84, 88, 0.40)',
+        }}
+      >
         {TAB_NAV.map(tab => {
           const isActive = activeTab === tab.id;
-          const activeH = accentColor?.h ?? 217;
-          const activeS = Math.min(accentColor?.s ?? 90, 75);
-
           return (
             <button
               key={tab.id}
               id={`mobile-nav-${tab.id}`}
               onClick={() => changeTab(tab.id)}
-              className="ripple relative flex flex-col items-center justify-center w-full h-14 gap-1 pt-1 overflow-hidden group cursor-pointer"
+              className="flex flex-col items-center justify-center w-full pt-2 pb-1 gap-0.5 cursor-pointer group"
             >
-              <div
-                className={`flex items-center justify-center w-14 h-8 rounded-full transition-all duration-300 ${
-                  isActive ? 'scale-105 shadow-lg' : 'bg-transparent text-white/50 group-hover:text-white/80'
-                }`}
-                style={isActive ? {
-                  background: `hsla(${activeH}, ${activeS}%, 55%, 0.22)`,
-                  borderColor: `hsla(${activeH}, ${activeS}%, 60%, 0.35)`,
-                  boxShadow: `0 4px 15px hsla(${activeH}, ${activeS}%, 50%, 0.25)`,
-                  color: `hsl(${activeH}, ${activeS}%, 65%)`
-                } : {}}
-              >
-                <span
-                  className="material-symbols-outlined text-[23px] transition-all"
-                  style={isActive ? { fontVariationSettings: "'FILL' 1" } : {}}
-                >
-                  {tab.icon}
-                </span>
-              </div>
               <span
-                className={`text-[10px] font-bold tracking-wide transition-colors ${
-                  isActive ? 'text-white' : 'text-white/50'
-                }`}
+                className="material-symbols-outlined text-[24px] transition-colors duration-150"
+                style={{
+                  color: isActive ? '#0A84FF' : 'rgba(235,235,245,0.45)',
+                  fontVariationSettings: isActive ? "'FILL' 1" : "'FILL' 0",
+                }}
+              >
+                {tab.icon}
+              </span>
+              <span
+                className="text-[10px] font-medium transition-colors duration-150"
+                style={{ color: isActive ? '#0A84FF' : 'rgba(235,235,245,0.45)' }}
               >
                 {tab.label}
               </span>
@@ -1639,6 +1667,8 @@ export default function App() {
           );
         })}
       </nav>
+
+
 
       {/* Auth System Modal */}
       <AuthModal
