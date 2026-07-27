@@ -1,62 +1,59 @@
 @import "tailwindcss";
 
 /* ─────────────────────────────────────────────────────────
-   Layout primitives
+   Layout Primitives
 ───────────────────────────────────────────────────────── */
-.w-sidebar-width  { width: 280px !important; }
-.ml-sidebar-width { margin-left: 280px !important; }
+.w-sidebar-width   { width: 240px !important; }
+.ml-sidebar-width  { margin-left: 240px !important; }
 .h-playback-height { height: 88px !important; }
 
 /* ─────────────────────────────────────────────────────────
-   Apple Design System Tokens
-   Source: Apple HIG · iOS 17 · macOS Sonoma dark mode
+   Apple Music Design Tokens (iOS 17 & macOS Sonoma HIG)
 ───────────────────────────────────────────────────────── */
 :root {
-  /* Brand */
-  --apple-blue:       #0A84FF;
-  --apple-blue-hover: #409CFF;
-  --apple-purple:     #BF5AF2;
-  --apple-pink:       #FF375F;
-  --apple-green:      #32D74B;
-  --apple-orange:     #FF9F0A;
-  --apple-red:        #FF453A;
+  /* Primary Apple Music Brand Color (Pink/Red Accent) */
+  --apple-red:          #FA243C;
+  --apple-red-hover:    #FF3B52;
+  --apple-red-muted:    rgba(250, 36, 60, 0.15);
+  
+  /* System Accents */
+  --apple-blue:         #0A84FF;
+  --apple-purple:       #BF5AF2;
+  --apple-pink:         #FF375F;
+  --apple-green:        #32D74B;
+  --apple-orange:       #FF9F0A;
 
-  /* Backgrounds */
-  --bg-primary:    #000000;
-  --bg-secondary:  #1C1C1E;
-  --bg-tertiary:   #2C2C2E;
-  --bg-quaternary: #3A3A3C;
+  /* Surfaces (OLED True Black base) */
+  --bg-primary:         #000000;
+  --bg-secondary:       #1C1C1E;
+  --bg-tertiary:        #2C2C2E;
+  --bg-quaternary:      #3A3A3C;
 
-  /* Labels */
-  --label-primary:   #FFFFFF;
-  --label-secondary: rgba(235, 235, 245, 0.60);
-  --label-tertiary:  rgba(235, 235, 245, 0.30);
-  --label-quaternary: rgba(235, 235, 245, 0.18);
+  /* Typography Labels (SF Pro Spec) */
+  --label-primary:      #FFFFFF;
+  --label-secondary:    rgba(235, 235, 245, 0.60);
+  --label-tertiary:     rgba(235, 235, 245, 0.30);
+  --label-quaternary:   rgba(235, 235, 245, 0.18);
 
-  /* Fills */
-  --fill-primary:   rgba(120, 120, 128, 0.36);
-  --fill-secondary: rgba(120, 120, 128, 0.28);
-  --fill-tertiary:  rgba(118, 118, 128, 0.20);
+  /* Hairline Separators */
+  --separator:          rgba(84, 84, 88, 0.35);
+  --separator-opaque:   #38383A;
 
-  /* Separators */
-  --separator:       rgba(84, 84, 88, 0.40);
-  --separator-opaque: #38383A;
+  /* Standard Apple Radii */
+  --radius-sm:          6px;
+  --radius-md:          10px;
+  --radius-lg:          12px;
+  --radius-xl:          16px;
 
-  /* Apple materials */
-  --material-ultra-thin:  rgba(22, 22, 23, 0.78);
-  --material-thin:        rgba(22, 22, 23, 0.86);
-  --material-regular:     rgba(22, 22, 23, 0.92);
-  --material-thick:       rgba(22, 22, 23, 0.96);
-
-  /* Legacy aliases so existing code still compiles */
-  --primary:        var(--apple-blue);
-  --background:     var(--bg-primary);
-  --surface:        var(--bg-secondary);
-  --theme-glow:     rgba(10, 132, 255, 0.12);
+  /* Legacy compatibility aliases */
+  --primary:            var(--apple-red);
+  --background:         var(--bg-primary);
+  --surface:            var(--bg-secondary);
+  --theme-glow:         rgba(250, 36, 60, 0.14);
 }
 
 /* ─────────────────────────────────────────────────────────
-   Resets & base
+   Base Typography & Resets
 ───────────────────────────────────────────────────────── */
 *, *::before, *::after { box-sizing: border-box; }
 
@@ -70,7 +67,6 @@ html {
 }
 
 body {
-  /* SF Pro-like reading — Inter at optical size 14-32 with variable weight */
   font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text",
                "Inter", system-ui, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -87,431 +83,40 @@ body {
   isolation: isolate;
 }
 
-/* Touch behavior */
 button, a, [role="button"] {
   touch-action: manipulation;
   -webkit-tap-highlight-color: transparent;
   cursor: pointer;
-}
-
-button, a, input, select {
-  transition-timing-function: cubic-bezier(0.25, 0.46, 0.45, 0.94); /* Apple's ease */
-}
-
-/* content-visibility fallback */
-@supports not (content-visibility: hidden) {
-  [style*="contentVisibility: hidden"] { display: none; }
-}
-
-/* GPU promotion */
-.apple-material, .ambient-glow {
-  transform: translateZ(0);
-  backface-visibility: hidden;
+  transition-timing-function: cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 
 /* ─────────────────────────────────────────────────────────
-   Apple Material (vibrancy / frosted glass)
-   Matches NSVisualEffectMaterial behavior
+   Apple Materials & Frosted Glass
 ───────────────────────────────────────────────────────── */
-.apple-material-ultra-thin {
-  background: var(--material-ultra-thin);
-  backdrop-filter: blur(40px) saturate(180%) brightness(0.96);
-  -webkit-backdrop-filter: blur(40px) saturate(180%) brightness(0.96);
-}
 .apple-material-thin {
-  background: var(--material-thin);
-  backdrop-filter: blur(40px) saturate(180%) brightness(0.95);
-  -webkit-backdrop-filter: blur(40px) saturate(180%) brightness(0.95);
-}
-.apple-material-regular {
-  background: var(--material-regular);
-  backdrop-filter: blur(40px) saturate(180%) brightness(0.94);
-  -webkit-backdrop-filter: blur(40px) saturate(180%) brightness(0.94);
+  background: rgba(22, 22, 23, 0.82);
+  backdrop-filter: blur(40px) saturate(190%) brightness(0.95);
+  -webkit-backdrop-filter: blur(40px) saturate(190%) brightness(0.95);
 }
 .apple-material-thick {
-  background: var(--material-thick);
-  backdrop-filter: blur(40px) saturate(180%) brightness(0.93);
-  -webkit-backdrop-filter: blur(40px) saturate(180%) brightness(0.93);
+  background: rgba(22, 22, 23, 0.94);
+  backdrop-filter: blur(50px) saturate(200%);
+  -webkit-backdrop-filter: blur(50px) saturate(200%);
 }
 
-/* Legacy aliases */
-.glass-fill    { @extend .apple-material-ultra-thin; }
-.glass-panel-1 { background: var(--bg-secondary); border: 0.5px solid var(--separator); border-radius: 12px; }
-.glass-panel-2 { background: var(--bg-tertiary);  border: 0.5px solid var(--separator); border-radius: 14px; }
-.glass-panel-3 { background: var(--material-regular); backdrop-filter: blur(40px) saturate(180%); border: 0.5px solid var(--separator); border-radius: 16px; }
-.glass-stroke  { border: 0.5px solid var(--separator); }
+.glass-panel-1 { background: var(--bg-secondary); border: 0.5px solid var(--separator); border-radius: var(--radius-lg); }
+.glass-panel-2 { background: var(--bg-tertiary);  border: 0.5px solid var(--separator); border-radius: var(--radius-lg); }
 
-/* ─────────────────────────────────────────────────────────
-   Card / interactive element styles
-───────────────────────────────────────────────────────── */
-
-/* Apple press effect — scale down on tap */
+/* Apple Press Scale Effect */
 .apple-press {
-  transition: transform 0.12s cubic-bezier(0.25, 0.46, 0.45, 0.94),
-              opacity 0.12s ease;
+  transition: transform 0.12s cubic-bezier(0.25, 0.46, 0.45, 0.94), opacity 0.12s ease;
 }
 .apple-press:active {
   transform: scale(0.97);
   opacity: 0.85;
 }
 
-/* Card lift */
-.card-hover {
-  transition: transform 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94),
-              box-shadow 0.2s ease;
-}
-.card-hover:hover {
-  transform: translateY(-2px) scale(1.01);
-  box-shadow: 0 8px 24px rgba(0,0,0,0.55);
-}
-
-/* ─────────────────────────────────────────────────────────
-   Glow / Accent effects (very Apple Music-like)
-───────────────────────────────────────────────────────── */
-.neon-glow-primary { box-shadow: 0 0 20px rgba(10, 132, 255, 0.18); }
-.neon-glow-blue    { box-shadow: 0 0 20px rgba(10, 132, 255, 0.25); }
-.neon-glow-violet  { box-shadow: 0 0 20px rgba(191, 90, 242, 0.25); }
-.neon-glow-steel   { box-shadow: none; }
-
-/* ─────────────────────────────────────────────────────────
-   Apple-style scrollbar
-───────────────────────────────────────────────────────── */
-::-webkit-scrollbar { width: 6px; height: 6px; }
-::-webkit-scrollbar-track { background: transparent; }
-::-webkit-scrollbar-thumb {
-  background: rgba(84, 84, 88, 0.45);
-  border-radius: 9999px;
-  transition: background 0.2s;
-}
-::-webkit-scrollbar-thumb:hover { background: rgba(84, 84, 88, 0.75); }
-
-.hide-scrollbar::-webkit-scrollbar { display: none; }
-.hide-scrollbar {
-  -ms-overflow-style: none;
-  scrollbar-width: none;
-  -webkit-overflow-scrolling: touch;
-  overscroll-behavior-y: contain;
-}
-
-.shelf-scroll {
-  -webkit-overflow-scrolling: touch;
-  overscroll-behavior-x: contain;
-  scroll-snap-type: x proximity;
-}
-.shelf-scroll > * { scroll-snap-align: start; }
-
-.app-scroll-region {
-  -webkit-overflow-scrolling: touch;
-  overscroll-behavior-y: auto;
-  touch-action: pan-y pinch-zoom;
-  scroll-behavior: auto;
-  scrollbar-gutter: stable both-edges;
-}
-
-/* ─────────────────────────────────────────────────────────
-   Range inputs
-───────────────────────────────────────────────────────── */
-input[type="range"] {
-  -webkit-appearance: none;
-  appearance: none;
-  background: transparent;
-  cursor: pointer;
-  touch-action: pan-x;
-  will-change: transform;
-}
-input[type="range"]::-webkit-slider-runnable-track {
-  background: var(--bg-quaternary);
-  height: 4px;
-  border-radius: 2px;
-}
-input[type="range"]::-webkit-slider-thumb {
-  -webkit-appearance: none;
-  appearance: none;
-  background-color: #ffffff;
-  height: 14px;
-  width: 14px;
-  border-radius: 50%;
-  margin-top: -5px;
-  box-shadow: 0 1px 4px rgba(0,0,0,0.5);
-  opacity: 0;
-  transition: opacity 0.15s;
-}
-.group:hover input[type="range"]::-webkit-slider-thumb { opacity: 1; }
-
-/* ─────────────────────────────────────────────────────────
-   Input focus — Apple ring
-───────────────────────────────────────────────────────── */
-input:focus, textarea:focus, select:focus {
-  outline: none;
-  box-shadow: 0 0 0 3px rgba(10, 132, 255, 0.40);
-  border-color: var(--apple-blue) !important;
-}
-
-/* ─────────────────────────────────────────────────────────
-   Page transitions
-───────────────────────────────────────────────────────── */
-@keyframes pageSlideIn {
-  from { opacity: 0; transform: translateY(8px); }
-  to   { opacity: 1; transform: translateY(0); }
-}
-.page-enter {
-  animation: pageSlideIn 0.22s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
-  will-change: opacity, transform;
-}
-
-/* ─────────────────────────────────────────────────────────
-   Reduced motion
-───────────────────────────────────────────────────────── */
-@media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
-  }
-}
-
-/* ─────────────────────────────────────────────────────────
-   Ambient glow — Apple Music style (very subtle)
-───────────────────────────────────────────────────────── */
-.ambient-glow {
-  position: fixed;
-  top: 0; left: 0; right: 0;
-  height: 50vh;
-  background: radial-gradient(ellipse 70% 50% at 50% -10%, var(--theme-glow) 0%, transparent 65%);
-  pointer-events: none;
-  z-index: 0;
-  transition: background 1.2s ease;
-  will-change: background;
-  transform: translateZ(0);
-}
-
-/* ─────────────────────────────────────────────────────────
-   Marquee
-───────────────────────────────────────────────────────── */
-.marquee-container { overflow: hidden; white-space: nowrap; }
-.marquee-content {
-  display: inline-block;
-  animation: marquee 12s linear infinite;
-  padding-left: 100%;
-}
-@keyframes marquee {
-  0%   { transform: translate3d(0,0,0); }
-  100% { transform: translate3d(-100%,0,0); }
-}
-
-/* ─────────────────────────────────────────────────────────
-   Shimmer loading
-───────────────────────────────────────────────────────── */
-.shimmer {
-  background: linear-gradient(
-    90deg,
-    rgba(255,255,255,0.03) 25%,
-    rgba(255,255,255,0.07) 50%,
-    rgba(255,255,255,0.03) 75%
-  );
-  background-size: 200% 100%;
-  animation: shimmer-anim 1.5s infinite;
-}
-@keyframes shimmer-anim {
-  0%   { background-position: 200% 0; }
-  100% { background-position: -200% 0; }
-}
-
-/* ─────────────────────────────────────────────────────────
-   Audio wave bars
-───────────────────────────────────────────────────────── */
-@keyframes audio-wave {
-  0%, 100% { height: 4px; }
-  50%       { height: 24px; }
-}
-.bar-animate                 { animation: audio-wave 1.2s ease-in-out infinite; }
-.bar-animate:nth-child(2)    { animation-delay: 0.15s; }
-.bar-animate:nth-child(3)    { animation-delay: 0.3s; }
-.bar-animate:nth-child(4)    { animation-delay: 0.45s; }
-.bar-animate:nth-child(5)    { animation-delay: 0.05s; }
-
-/* ─────────────────────────────────────────────────────────
-   Overlay styles (rain / synth grid)
-───────────────────────────────────────────────────────── */
-.rain-overlay {
-  position: fixed; inset: 0; pointer-events: none;
-  background-image: radial-gradient(rgba(255,255,255,0.04) 1px, transparent 0);
-  background-size: 24px 24px;
-  opacity: 0; transition: opacity 2s ease; z-index: 1;
-}
-.rain-active .rain-overlay { opacity: 1; animation: rain-fall 1s linear infinite; }
-@keyframes rain-fall {
-  0%   { background-position: 0 0; }
-  100% { background-position: 24px 200px; }
-}
-
-.grid-overlay {
-  position: fixed; inset: 0; pointer-events: none;
-  background-image:
-    linear-gradient(rgba(10,132,255,0.03) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(10,132,255,0.03) 1px, transparent 1px);
-  background-size: 40px 40px;
-  transform: perspective(500px) rotateX(60deg) translateY(-100px);
-  transform-origin: top center;
-  opacity: 0; transition: opacity 2s ease; z-index: 1;
-}
-.synthwave-active .grid-overlay { opacity: 1; animation: grid-scroll 20s linear infinite; }
-@keyframes grid-scroll {
-  0%   { background-position: 0 0; }
-  100% { background-position: 0 400px; }
-}
-
-/* ─────────────────────────────────────────────────────────
-   Stats / Wrapped animations
-───────────────────────────────────────────────────────── */
-@keyframes loadingShimmer {
-  0%   { background-position: -200px 0; }
-  100% { background-position: calc(200px + 100%) 0; }
-}
-.animate-loadingShimmer { animation: loadingShimmer 2.5s infinite linear; }
-
-@keyframes soundwave {
-  0%, 100% { transform: scaleY(0.3); }
-  50%       { transform: scaleY(1.0); }
-}
-.animate-soundwave { animation: soundwave 1.2s infinite ease-in-out; transform-origin: bottom; }
-
-@keyframes slideUp {
-  0%   { opacity: 0; transform: translate3d(-50%, 20px, 0); }
-  100% { opacity: 1; transform: translate3d(-50%, 0, 0); }
-}
-.animate-slideUp { animation: slideUp 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards; }
-
-.duration-10000 { animation-duration: 10s; }
-.duration-8000  { animation-duration: 8s; }
-
-@keyframes spin {
-  from { transform: rotate(0deg); }
-  to   { transform: rotate(360deg); }
-}
-
-/* ─────────────────────────────────────────────────────────
-   Splash / Logo animations
-───────────────────────────────────────────────────────── */
-@keyframes pulseGlow {
-  0%, 100% { transform: scale(1.0); filter: drop-shadow(0 0 12px rgba(10,132,255,0.35)) brightness(1.0); }
-  50%       { transform: scale(1.03); filter: drop-shadow(0 0 28px rgba(10,132,255,0.55)) brightness(1.05); }
-}
-.animate-pulseGlow { animation: pulseGlow 3s ease-in-out infinite; }
-
-@keyframes orbitSpin {
-  0%   { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
-}
-.animate-orbitSpin { animation: orbitSpin 18s linear infinite; }
-
-@keyframes floatNote {
-  0%   { transform: translateY(0) rotate(0deg); opacity: 0; }
-  50%  { opacity: 0.5; }
-  100% { transform: translateY(-100px) rotate(20deg); opacity: 0; }
-}
-.animate-floatNote-1 { animation: floatNote 6s ease-in-out infinite; }
-.animate-floatNote-2 { animation: floatNote 8s ease-in-out infinite 2s; }
-.animate-floatNote-3 { animation: floatNote 7s ease-in-out infinite 4s; }
-
-@keyframes zoomInTransition {
-  0%   { transform: scale(1.0); filter: blur(0); opacity: 1; }
-  50%  { opacity: 0.8; }
-  100% { transform: scale(6.0); filter: blur(20px); opacity: 0; }
-}
-.animate-zoomIn { animation: zoomInTransition 0.9s cubic-bezier(0.7, 0, 0.3, 1) forwards; }
-
-@keyframes fadeInGate {
-  from { opacity: 0; transform: scale(0.97) translateY(20px); }
-  to   { opacity: 1; transform: scale(1.0) translateY(0); }
-}
-.animate-fadeInGate { animation: fadeInGate 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards; }
-
-@keyframes logoZoomIn {
-  0%   { opacity: 0; transform: scale(0.4); }
-  100% { opacity: 1; transform: scale(1.0); }
-}
-.animate-logoZoomIn { animation: logoZoomIn 0.65s cubic-bezier(0.34, 1.56, 0.64, 1) forwards; }
-
-/* ─────────────────────────────────────────────────────────
-   Now playing
-───────────────────────────────────────────────────────── */
-@keyframes nowPlayingSlideUp {
-  from { transform: translateY(100%); opacity: 0.8; }
-  to   { transform: translateY(0%);   opacity: 1; }
-}
-@keyframes nowPlayingSlideDown {
-  from { transform: translateY(0%);   opacity: 1; }
-  to   { transform: translateY(100%); opacity: 0; }
-}
-
-@keyframes albumBreath {
-  0%, 100% { transform: scale(1.0); box-shadow: 0 20px 60px rgba(0,0,0,0.6); }
-  50%       { transform: scale(1.02); box-shadow: 0 28px 80px rgba(0,0,0,0.75); }
-}
-
-/* ─────────────────────────────────────────────────────────
-   Misc utilities
-───────────────────────────────────────────────────────── */
-.pt-safe { padding-top: env(safe-area-inset-top, 0px); }
-
-.ripple { position: relative; overflow: hidden; transform: translate3d(0,0,0); }
-.ripple::after {
-  content: "";
-  display: block;
-  position: absolute;
-  width: 100%; height: 100%;
-  top: 0; left: 0;
-  pointer-events: none;
-  background-image: radial-gradient(circle, rgba(255,255,255,0.12) 10%, transparent 10.01%);
-  background-repeat: no-repeat;
-  background-position: 50%;
-  transform: scale(10, 10);
-  opacity: 0;
-  transition: transform .4s, opacity .8s;
-}
-.ripple:active::after { transform: scale(0,0); opacity: .25; transition: 0s; }
-
-/* ─────────────────────────────────────────────────────────
-   Soundwave bars (logo)
-───────────────────────────────────────────────────────── */
-@keyframes soundwave-1 { 0%, 100% { transform: scaleY(0.4); } 50% { transform: scaleY(1.0); } }
-@keyframes soundwave-2 { 0%, 100% { transform: scaleY(0.5); } 50% { transform: scaleY(1.1); } }
-@keyframes soundwave-3 { 0%, 100% { transform: scaleY(0.3); } 50% { transform: scaleY(1.2); } }
-@keyframes soundwave-4 { 0%, 100% { transform: scaleY(0.5); } 50% { transform: scaleY(1.1); } }
-@keyframes soundwave-5 { 0%, 100% { transform: scaleY(0.4); } 50% { transform: scaleY(1.0); } }
-
-.animate-soundwave-1 { animation: soundwave-1 1.2s infinite ease-in-out; }
-.animate-soundwave-2 { animation: soundwave-2 1.2s infinite ease-in-out 0.15s; }
-.animate-soundwave-3 { animation: soundwave-3 1.2s infinite ease-in-out 0.3s; }
-.animate-soundwave-4 { animation: soundwave-4 1.2s infinite ease-in-out 0.45s; }
-.animate-soundwave-5 { animation: soundwave-5 1.2s infinite ease-in-out 0.6s; }
-
-/* ─────────────────────────────────────────────────────────
-   Apple-style card entrance (quick, springy)
-───────────────────────────────────────────────────────── */
-@keyframes cardReveal {
-  from { opacity: 0; transform: translateY(12px) scale(0.98); }
-  to   { opacity: 1; transform: translateY(0) scale(1); }
-}
-.animate-cardReveal { animation: cardReveal 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94) both; }
-
-/* Stagger delays */
-.delay-50  { animation-delay: 50ms; }
-.delay-100 { animation-delay: 100ms; }
-.delay-150 { animation-delay: 150ms; }
-.delay-200 { animation-delay: 200ms; }
-.delay-250 { animation-delay: 250ms; }
-.delay-300 { animation-delay: 300ms; }
-
-/* ─────────────────────────────────────────────────────────
-   Apple Blue accent text
-───────────────────────────────────────────────────────── */
-.apple-blue-text { color: var(--apple-blue); }
-
-/* ─────────────────────────────────────────────────────────
-   Track card play button reveal
-───────────────────────────────────────────────────────── */
+/* Track Card Play Button Overlay */
 .track-card .play-btn {
   opacity: 0;
   transform: translateY(4px) scale(0.94);
@@ -523,34 +128,68 @@ input:focus, textarea:focus, select:focus {
   transform: translateY(0) scale(1);
 }
 
-/* ─────────────────────────────────────────────────────────
-   Apple bottom nav active dot
-───────────────────────────────────────────────────────── */
-.nav-active-dot {
-  width: 4px; height: 4px;
-  border-radius: 50%;
-  background: var(--apple-blue);
-  margin: 1px auto 0;
+/* Quiet Scrollbars */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb {
+  background: rgba(84, 84, 88, 0.40);
+  border-radius: 9999px;
+}
+::-webkit-scrollbar-thumb:hover { background: rgba(84, 84, 88, 0.70); }
+
+.hide-scrollbar::-webkit-scrollbar { display: none; }
+.hide-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
 }
 
-/* ─────────────────────────────────────────────────────────
-   Sidebar active state
-───────────────────────────────────────────────────────── */
-.sidebar-nav-active {
-  background: var(--fill-tertiary);
-  color: var(--label-primary);
+.shelf-scroll {
+  -webkit-overflow-scrolling: touch;
+  scroll-snap-type: x proximity;
+}
+.shelf-scroll > * { scroll-snap-align: start; }
+
+/* Inset Grouped Table Cell (iOS Style) */
+.ios-grouped-cell {
+  background: rgba(44, 44, 46, 0.65);
+  border-bottom: 0.5px solid var(--separator);
+  transition: background-color 0.15s ease;
+}
+.ios-grouped-cell:hover {
+  background: rgba(58, 58, 60, 0.80);
+}
+.ios-grouped-cell:last-child {
+  border-bottom: none;
 }
 
-/* ─────────────────────────────────────────────────────────
-   Quick pick hover (Apple list row style)
-───────────────────────────────────────────────────────── */
-.quick-pick:hover { background: var(--fill-secondary) !important; }
+/* Animations */
+@keyframes cardReveal {
+  from { opacity: 0; transform: translateY(10px) scale(0.98); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+.animate-cardReveal { animation: cardReveal 0.32s cubic-bezier(0.25, 0.46, 0.45, 0.94) both; }
 
-/* ─────────────────────────────────────────────────────────
-   Apple-style modal backdrop
-───────────────────────────────────────────────────────── */
-.apple-modal-backdrop {
-  background: rgba(0, 0, 0, 0.6);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
+@keyframes logoZoomIn {
+  0%   { opacity: 0; transform: scale(0.5); }
+  100% { opacity: 1; transform: scale(1.0); }
+}
+.animate-logoZoomIn { animation: logoZoomIn 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) forwards; }
+
+@keyframes soundwave {
+  0%, 100% { transform: scaleY(0.35); }
+  50%       { transform: scaleY(1.0); }
+}
+.animate-soundwave { animation: soundwave 1.2s infinite ease-in-out; transform-origin: bottom; }
+.animate-soundwave-1 { animation: soundwave 1.2s infinite ease-in-out; }
+.animate-soundwave-2 { animation: soundwave 1.2s infinite ease-in-out 0.15s; }
+.animate-soundwave-3 { animation: soundwave 1.2s infinite ease-in-out 0.30s; }
+.animate-soundwave-4 { animation: soundwave 1.2s infinite ease-in-out 0.45s; }
+.animate-soundwave-5 { animation: soundwave 1.2s infinite ease-in-out 0.60s; }
+
+/* Input Focus Ring */
+input:focus, textarea:focus, select:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(250, 36, 60, 0.35);
+  border-color: var(--apple-red) !important;
 }

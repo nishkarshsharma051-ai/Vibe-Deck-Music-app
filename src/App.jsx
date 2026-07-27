@@ -1414,10 +1414,11 @@ export default function App() {
             </div>
             <div className="flex gap-1.5 mt-1">
               {[0,1,2].map(i => (
-                <div key={i} className="w-1.5 h-1.5 rounded-full bg-[#0A84FF]"
+                <div key={i} className="w-1.5 h-1.5 rounded-full bg-[#FA243C]"
                   style={{ animation: `soundwave-${i+1} 1.2s ease-in-out infinite`, animationDelay: `${i * 0.18}s`, transformOrigin: 'bottom' }} />
               ))}
             </div>
+
           </div>
         </div>
 
@@ -1445,17 +1446,17 @@ export default function App() {
             {/* Brand */}
             <div className="flex items-center gap-2.5">
               <div
-                className="flex h-8 w-8 items-center justify-center rounded-[8px] flex-shrink-0"
+                className="flex h-7 w-7 items-center justify-center rounded-[6px] flex-shrink-0"
                 style={{
-                  background: 'linear-gradient(145deg, #0A84FF, #0066CC)',
-                  boxShadow: '0 2px 8px rgba(10, 132, 255, 0.35)',
+                  background: 'linear-gradient(145deg, #FA243C, #D81B30)',
+                  boxShadow: '0 2px 8px rgba(250, 36, 60, 0.35)',
                 }}
               >
-                <span className="material-symbols-outlined text-white text-[16px]" style={{ fontVariationSettings: "'FILL' 1" }}>music_note</span>
+                <span className="material-symbols-outlined text-white text-[15px]" style={{ fontVariationSettings: "'FILL' 1" }}>music_note</span>
               </div>
               <div>
                 <div className="flex items-center gap-2">
-                  <h1 className="text-[16px] font-bold tracking-tight text-white" style={{ letterSpacing: '-0.2px' }}>Vibe Deck</h1>
+                  <h1 className="text-[15px] font-bold tracking-tight text-white" style={{ letterSpacing: '-0.2px' }}>Vibe Deck</h1>
                   {!isOnline && (
                     <span className="text-[10px] font-semibold px-2 py-0.5 rounded-full flex items-center gap-1"
                       style={{ background: 'rgba(255,69,58,0.12)', color: '#FF453A', border: '0.5px solid rgba(255,69,58,0.25)' }}>
@@ -1464,8 +1465,9 @@ export default function App() {
                     </span>
                   )}
                 </div>
-                <p className="text-[10px] font-semibold uppercase tracking-widest text-[#0A84FF]">Music</p>
+                <p className="text-[10px] font-semibold uppercase tracking-widest text-[#FA243C]">Music</p>
               </div>
+
             </div>
 
             {/* Actions */}
@@ -1480,15 +1482,16 @@ export default function App() {
               </button>
               <button
                 onClick={handleAuthClick}
-                className="flex h-9 min-w-9 items-center justify-center rounded-full px-3 text-[13px] font-semibold text-white transition-all"
+                className="flex h-8 min-w-8 items-center justify-center rounded-full px-3 text-[12px] font-semibold text-white transition-all"
                 style={{
-                  background: user ? 'rgba(120,120,128,0.20)' : '#0A84FF',
-                  boxShadow: user ? 'none' : '0 2px 8px rgba(10,132,255,0.30)',
+                  background: user ? 'rgba(120,120,128,0.20)' : '#FA243C',
+                  boxShadow: user ? 'none' : '0 2px 8px rgba(250,36,60,0.30)',
                 }}
                 title="Account"
               >
                 {user ? (user.displayName?.[0] || user.email?.[0] || 'U') : 'Sign In'}
               </button>
+
             </div>
           </div>
         </header>
@@ -1651,7 +1654,7 @@ export default function App() {
               <span
                 className="material-symbols-outlined text-[24px] transition-colors duration-150"
                 style={{
-                  color: isActive ? '#0A84FF' : 'rgba(235,235,245,0.45)',
+                  color: isActive ? '#FA243C' : 'rgba(235,235,245,0.45)',
                   fontVariationSettings: isActive ? "'FILL' 1" : "'FILL' 0",
                 }}
               >
@@ -1659,10 +1662,11 @@ export default function App() {
               </span>
               <span
                 className="text-[10px] font-medium transition-colors duration-150"
-                style={{ color: isActive ? '#0A84FF' : 'rgba(235,235,245,0.45)' }}
+                style={{ color: isActive ? '#FA243C' : 'rgba(235,235,245,0.45)' }}
               >
                 {tab.label}
               </span>
+
             </button>
           );
         })}

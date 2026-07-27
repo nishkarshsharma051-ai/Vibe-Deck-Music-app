@@ -1,7 +1,7 @@
 import React from 'react';
 
 /**
- * VibeDeck Logo — Apple Blue system color
+ * VibeDeck Logo — Apple Music Brand Red (#FA243C)
  */
 export default function Logo({ size = 'md', className = '', animated = false }) {
   const dimensions = {
@@ -20,11 +20,10 @@ export default function Logo({ size = 'md', className = '', animated = false }) 
         className="w-full h-full"
       >
         <defs>
-          {/* Apple Blue gradient — system blue to teal */}
           <linearGradient id="vibedeck-logo-grad" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%"   stopColor="#0A84FF" />
-            <stop offset="50%"  stopColor="#0066CC" />
-            <stop offset="100%" stopColor="#5AC8FA" />
+            <stop offset="0%"   stopColor="#FA243C" />
+            <stop offset="60%"  stopColor="#D81B30" />
+            <stop offset="100%" stopColor="#FF375F" />
           </linearGradient>
           <filter id="logo-glow" x="-20%" y="-20%" width="140%" height="140%">
             <feGaussianBlur stdDeviation="2" result="blur" />
@@ -32,7 +31,6 @@ export default function Logo({ size = 'md', className = '', animated = false }) 
           </filter>
         </defs>
 
-        {/* Outer ring */}
         <circle
           cx="50" cy="50" r="42"
           stroke="url(#vibedeck-logo-grad)"
@@ -42,7 +40,6 @@ export default function Logo({ size = 'md', className = '', animated = false }) 
           style={{ transformOrigin: 'center' }}
         />
 
-        {/* Inner orbit ring */}
         <circle
           cx="50" cy="50" r="33"
           stroke="white"
@@ -53,7 +50,6 @@ export default function Logo({ size = 'md', className = '', animated = false }) 
           style={{ transformOrigin: 'center', animationDuration: '22s' }}
         />
 
-        {/* Center core */}
         <circle
           cx="50" cy="50" r="16"
           fill="url(#vibedeck-logo-grad)"
@@ -62,7 +58,6 @@ export default function Logo({ size = 'md', className = '', animated = false }) 
           strokeWidth="1.5"
         />
 
-        {/* Equalizer bars */}
         <g filter="url(#logo-glow)">
           <rect x="36" y="42" width="4" height="16" rx="2" fill="url(#vibedeck-logo-grad)"
             className={animated ? "animate-soundwave-1" : ""}
