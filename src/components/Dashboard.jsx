@@ -209,8 +209,8 @@ export default function Dashboard({
     else             setGreeting('Good Evening');
   }, []);
 
-  const quickPicks     = useMemo(() => history.filter(isTrackPlayable).filter(t => !isOnline ? t.isLocal : true).slice(0, 6), [history, isOnline]);
-  const recentlyPlayed = useMemo(() => history.filter(isTrackPlayable).filter(t => !isOnline ? t.isLocal : true).slice(0, 8), [history, isOnline]);
+  const quickPicks     = useMemo(() => history.filter(isTrackPlayable).slice(0, 6), [history]);
+  const recentlyPlayed = useMemo(() => history.filter(isTrackPlayable).slice(0, 8), [history]);
 
   /* Deep Monochrome Ambient Fade */
   const heroBg = accentColor
@@ -231,14 +231,6 @@ export default function Dashboard({
           {greeting}
         </h1>
       </div>
-
-      {!isOnline && (
-        <div className="mb-4 inline-flex items-center gap-2 rounded-full px-3 py-1 text-[12px] font-semibold"
-          style={{ background: 'rgba(255,255,255,0.10)', color: '#FFFFFF', border: '0.5px solid rgba(255,255,255,0.20)' }}>
-          <span className="w-1.5 h-1.5 rounded-full bg-white animate-pulse" />
-          Offline Mode
-        </div>
-      )}
 
       {/* Quick Picks */}
       {quickPicks.length > 0 && (
@@ -267,36 +259,20 @@ export default function Dashboard({
         </section>
       )}
 
-      {!isOnline && quickPicks.length === 0 && (
-        <div
-          className="rounded-[12px] p-6 text-center my-4"
-          style={{ background: 'rgba(26,26,30,0.6)', border: '0.5px solid rgba(255,255,255,0.10)' }}
-        >
-          <span className="material-symbols-outlined text-[40px] block mb-2"
-            style={{ color: 'rgba(255,255,255,0.3)' }}>cloud_off</span>
-          <h3 className="text-[15px] font-bold text-white mb-1">You're Offline</h3>
-          <p className="text-[13px]" style={{ color: 'rgba(255,255,255,0.50)' }}>
-            Import local audio files to listen anywhere.
-          </p>
-        </div>
-      )}
-
       {/* Moods */}
-      {isOnline && (
-        <div className="mb-6">
-          <MoodChips onPlayTrack={onPlayTrack} />
-        </div>
-      )}
+      <div className="mb-6">
+        <MoodChips onPlayTrack={onPlayTrack} />
+      </div>
 
       {/* Suggested Songs */}
-      {isOnline && suggestedSongs.length > 0 && (
+      {suggestedSongs.length > 0 && (
         <div className="mb-6">
           <Shelf title="Suggested for You" items={suggestedSongs} onPlayTrack={onPlayTrack} />
         </div>
       )}
 
       {/* Featured Albums */}
-      {isOnline && suggestedAlbums.length > 0 && (
+      {suggestedAlbums.length > 0 && (
         <div className="mb-6">
           <AlbumShelf title="Featured Albums" items={suggestedAlbums} onPlayAlbum={onPlayAlbum} />
         </div>

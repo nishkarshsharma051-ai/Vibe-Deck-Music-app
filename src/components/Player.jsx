@@ -111,7 +111,6 @@ export default function Player({
 
   useEffect(() => {
     if (!('mediaSession' in navigator)) return;
-    if (Capacitor.isNativePlatform()) return;
     if (!currentTrack) { navigator.mediaSession.metadata = null; return; }
 
     const setMetadata = (artworkUrl) => {
@@ -171,7 +170,6 @@ export default function Player({
   // Sync playback state → notification shows "playing" or "paused"
   useEffect(() => {
     if (!('mediaSession' in navigator)) return;
-    if (Capacitor.isNativePlatform()) return;
     navigator.mediaSession.playbackState = isPlaying ? 'playing' : 'paused';
   }, [isPlaying]);
 
@@ -182,7 +180,6 @@ export default function Player({
   // Register notification button action handlers
   useEffect(() => {
     if (!('mediaSession' in navigator)) return;
-    if (Capacitor.isNativePlatform()) return;
 
     const handlePlay = () => {
       setIsPlaying(true);

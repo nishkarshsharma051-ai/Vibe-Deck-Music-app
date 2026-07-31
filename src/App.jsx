@@ -1459,13 +1459,6 @@ export default function App() {
               <div>
                 <div className="flex items-center gap-2">
                   <h1 className="text-[15px] font-bold tracking-tight text-white" style={{ letterSpacing: '-0.2px' }}>Vibe Deck</h1>
-                  {!isOnline && (
-                    <span className="text-[10px] font-semibold px-2 py-0.5 rounded-full flex items-center gap-1"
-                      style={{ background: 'rgba(255,255,255,0.10)', color: '#FFFFFF', border: '0.5px solid rgba(255,255,255,0.20)' }}>
-                      <span className="w-1.5 h-1.5 rounded-full bg-white animate-pulse" />
-                      Offline
-                    </span>
-                  )}
                 </div>
                 <p className="text-[10px] font-semibold uppercase tracking-widest text-white/50">Music</p>
               </div>

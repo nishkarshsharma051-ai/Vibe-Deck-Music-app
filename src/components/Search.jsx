@@ -24,19 +24,6 @@ const Search = function Search({
   const [artistResults, setArtistResults] = useState([]);
   const [selectedArtist, setSelectedArtist] = useState(null);
 
-  if (!isOnline) {
-    return (
-      <div className="min-h-full bg-black px-6 py-20 text-white flex flex-col items-center justify-center text-center">
-        <div className="w-20 h-20 rounded-full bg-white/5 flex items-center justify-center mb-6 border border-white/10">
-          <span className="material-symbols-outlined text-4xl text-red-400">cloud_off</span>
-        </div>
-        <h2 className="text-2xl font-black mb-2">You're Offline</h2>
-        <p className="text-sm text-[#b3b3b3] max-w-sm mb-8 leading-relaxed">
-          Search requires an internet connection. Head over to your Library tab to play your persistently saved local audio tracks.
-        </p>
-      </div>
-    );
-  }
   const [selectedArtistSongs, setSelectedArtistSongs] = useState([]);
   const [loading, setLoading] = useState(false);
   const [loadingArtistSongs, setLoadingArtistSongs] = useState(false);
