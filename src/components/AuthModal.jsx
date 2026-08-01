@@ -49,25 +49,34 @@ export default function AuthModal({ isOpen, onClose }) {
   const handleGoogleSignIn = async () => {
     setError('');
     if (!hasFirebaseCredentials) {
-      setError("Firebase Authentication is not configured. Add credentials to your .env file.");
+      setError("Firebase Authentication is not configured.");
       return;
     }
 
     setLoading(true);
     try {
-      // Try popup authentication first (prevents full window redirects which lose port bindings on mobile)
-      await signInWithPopup(auth, googleProvider);
-      onClose();
-    } catch (err) {
-      console.warn("signInWithPopup failed, attempting redirect fallback...", err);
-      // Fallback to redirect if popup fails or is blocked
-      try {
-        await signInWithRedirect(auth, googleProvider);
-      } catch (redirectErr) {
-        console.error(redirectErr);
-        setError(redirectErr.message.replace('Firebase:', '').replace('auth/', ''));
-        setLoading(false);
+      if (Capacitor.isNativePlatform()) {
+        // Native Capacitor WebView: popup mode prevents blank page redirect stalls
+        await signInWithPopup(auth, googleProvider);
+        onClose();
+      } else {
+        // Web Browser
+        try {
+          await signInWithPopup(auth, googleProvider);
+          onClose();
+        } catch (popupErr) {
+          if (popupErr.code === 'auth/popup-blocked' || popupErr.code === 'auth/popup-closed-by-user') {
+            await signInWithRedirect(auth, googleProvider);
+          } else {
+            throw popupErr;
+          }
+        }
       }
+    } catch (err) {
+      console.error("Google Sign-In failed:", err);
+      setError(err.message ? err.message.replace('Firebase: ', '').replace('auth/', '') : 'Google Sign-In failed');
+    } finally {
+      setLoading(false);
     }
   };
 

@@ -102,48 +102,31 @@ function MoodChips({ onPlayTrack }) {
     setLoadingMood(mood.id);
 
     try {
-      const GAANA_API_BASE = 'https://gaana-api-pied.vercel.app/api';
       let tracks = [];
-
-      try {
-        const res = await fetch(`${GAANA_API_BASE}/search/songs?q=${encodeURIComponent(mood.query)}&limit=12`);
-        if (res.ok) {
-          const json = await res.json();
-          if (json.data?.length) {
-            tracks = json.data.map(item => ({
-              id: `gaana-${item.track_id}`, trackId: item.track_id, seoKey: item.seokey,
-              title: item.title, artist: item.artists || 'Unknown Artist',
-              album: item.album || '', duration: item.duration ? Number(item.duration) : 240,
-              coverUrl: item.artworkUrl || '', url: '', hlsUrl: '',
-              genre: mood.label, source: 'gaana', playbackMode: 'audio',
-              isItunes: false, youtubeId: null,
-            }));
-          }
-        }
-      } catch { /* fall through */ }
-
-      if (!tracks.length) {
-        const res = await fetch(`https://saavn.sumit.co/api/search/songs?query=${encodeURIComponent(mood.query)}&limit=12`);
-        if (res.ok) {
-          const data = await res.json();
-          if (data?.data?.results?.length) {
-            tracks = data.data.results.map(item => ({
-              id: `jiosaavn-${item.id}`,
-              title: item.name?.replace(/&quot;/g,'"').replace(/&amp;/g,'&').replace(/&#039;/g,"'") || '',
-              artist: item.artists?.primary?.map(a => a.name).join(', ') || 'Unknown Artist',
-              album: item.album?.name || '',
-              coverUrl: item.image?.find(i => i.quality === '500x500')?.url || item.image?.[0]?.url || '',
-              url: item.downloadUrl?.find(d => d.quality === '320kbps')?.url || item.downloadUrl?.[0]?.url || '',
-              duration: item.duration ? Number(item.duration) : 240,
-              genre: mood.label, source: 'jiosaavn', playbackMode: 'audio',
-              isItunes: false, youtubeId: null,
-            }));
-          }
+      // Use different random search queries/pages for mood to get diverse fresh tracks each tap
+      const randomPage = Math.floor(Math.random() * 3) + 1;
+      const res = await fetch(`https://saavn.sumit.co/api/search/songs?query=${encodeURIComponent(mood.query)}&page=${randomPage}&limit=20`);
+      if (res.ok) {
+        const data = await res.json();
+        if (data?.data?.results?.length) {
+          tracks = data.data.results.map(item => ({
+            id: `jiosaavn-${item.id}`,
+            title: item.name?.replace(/&quot;/g,'"').replace(/&amp;/g,'&').replace(/&#039;/g,"'") || '',
+            artist: item.artists?.primary?.map(a => a.name).join(', ') || item.artist || 'Unknown Artist',
+            album: item.album?.name || '',
+            coverUrl: item.image?.find(i => i.quality === '500x500')?.url || item.image?.[0]?.url || '',
+            url: item.downloadUrl?.find(d => d.quality === '320kbps')?.url || item.downloadUrl?.[0]?.url || '',
+            duration: item.duration ? Number(item.duration) : 240,
+            genre: mood.label, source: 'jiosaavn', playbackMode: 'audio',
+            isItunes: false, youtubeId: null,
+          })).filter(t => t.url);
         }
       }
 
       if (tracks.length > 0 && typeof onPlayTrack === 'function') {
-        await onPlayTrack(tracks[0], tracks);
+        // Pick a random starting index from the mood result to avoid playing the exact same track first
+        const randomIndex = Math.floor(Math.random() * Math.min(tracks.length, 5));
+        await onPlayTrack(tracks[randomIndex], tracks);
       }
     } catch (err) {
       console.warn('Mood fetch failed:', err);
