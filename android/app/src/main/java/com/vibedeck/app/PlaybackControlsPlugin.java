@@ -15,13 +15,17 @@ public class PlaybackControlsPlugin extends Plugin {
         String artist = call.getString("artist", "Ready to play");
         String coverUrl = call.getString("coverUrl", "");
         boolean isPlaying = call.getBoolean("isPlaying", false);
+        double duration = call.getDouble("duration", 0.0);
+        double currentTime = call.getDouble("currentTime", 0.0);
 
         PlaybackService.updatePlaybackState(
             getContext(),
             title,
             artist,
             coverUrl,
-            isPlaying
+            isPlaying,
+            (long) (duration * 1000),
+            (long) (currentTime * 1000)
         );
 
         JSObject result = new JSObject();

@@ -174,8 +174,8 @@ export default function Player({
   }, [isPlaying]);
 
   useEffect(() => {
-    updateNativePlaybackState(currentTrack, isPlaying);
-  }, [currentTrack?.id, currentTrack?.title, currentTrack?.artist, isPlaying]);
+    updateNativePlaybackState(currentTrack, isPlaying, duration, currentTime);
+  }, [currentTrack?.id, currentTrack?.title, currentTrack?.artist, isPlaying, duration]);
 
   // Register notification button action handlers
   useEffect(() => {
@@ -564,6 +564,12 @@ export default function Player({
         onPlayNextRef.current();
       } else if (action === 'previous') {
         onPlayPreviousRef.current();
+      } else if (action && action.startsWith('seekto:')) {
+        const seekTime = parseFloat(action.split(':')[1]);
+        if (!isNaN(seekTime)) {
+          setCurrentTime(seekTime);
+          if (audioRef.current) audioRef.current.currentTime = seekTime;
+        }
       }
     };
 

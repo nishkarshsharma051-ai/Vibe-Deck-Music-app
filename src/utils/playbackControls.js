@@ -19,7 +19,7 @@ export async function requestNotificationPermission() {
  * Update the native (Capacitor) media notification with full track metadata.
  * Falls back silently if not on a native platform or plugin is unavailable.
  */
-export async function updateNativePlaybackState(track, isPlaying) {
+export async function updateNativePlaybackState(track, isPlaying, duration = 0, currentTime = 0) {
   if (!Capacitor.isNativePlatform()) return;
 
   try {
@@ -27,7 +27,8 @@ export async function updateNativePlaybackState(track, isPlaying) {
     const artist   = track?.artist   ? String(track.artist)   : 'Unknown Artist';
     const album    = track?.album    ? String(track.album)    : 'Vibe Deck';
     const coverUrl = track?.coverUrl ? String(track.coverUrl) : '';
-    const duration = track?.duration ? Number(track.duration) : 0;
+    const durNum   = duration || (track?.duration ? Number(track.duration) : 0);
+    const currNum  = currentTime || 0;
 
     await PlaybackControls.updateState({
       title,
@@ -35,7 +36,8 @@ export async function updateNativePlaybackState(track, isPlaying) {
       album,
       coverUrl,
       isPlaying: Boolean(isPlaying),
-      duration,
+      duration: Number(durNum),
+      currentTime: Number(currNum),
     });
   } catch (_) {
     // Plugin not installed or not available — ignore silently

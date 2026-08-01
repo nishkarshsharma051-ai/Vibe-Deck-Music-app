@@ -33,6 +33,8 @@ public class PlaybackService extends Service {
     private static String currentArtist = "Ready to play";
     private static String currentCoverUrl = "";
     private static boolean currentIsPlaying = false;
+    private static long currentDuration = -1L;
+    private static long currentPosition = 0L;
     private static Bitmap currentCoverBitmap = null;
     private static final ExecutorService executor = Executors.newSingleThreadExecutor();
     
@@ -44,11 +46,15 @@ public class PlaybackService extends Service {
         String title,
         String artist,
         String coverUrl,
-        boolean isPlaying
+        boolean isPlaying,
+        long durationMs,
+        long positionMs
     ) {
         currentTitle = title;
         currentArtist = artist;
         currentIsPlaying = isPlaying;
+        currentDuration = durationMs > 0 ? durationMs : -1L;
+        currentPosition = Math.max(0L, positionMs);
 
         if (instance != null) {
             // Safe direct update when service is already running
@@ -142,6 +148,11 @@ public class PlaybackService extends Service {
             public void onSkipToPrevious() {
                 MainActivity.emitPlaybackAction("previous");
             }
+
+            @Override
+            public void onSeekTo(long pos) {
+                MainActivity.emitPlaybackAction("seekto:" + (pos / 1000));
+            }
         });
 
         mediaSession.setActive(true);
@@ -161,7 +172,7 @@ public class PlaybackService extends Service {
                 .putString(MediaMetadataCompat.METADATA_KEY_ALBUM, "Vibe Deck")
                 .putString(MediaMetadataCompat.METADATA_KEY_DISPLAY_TITLE, currentTitle)
                 .putString(MediaMetadataCompat.METADATA_KEY_DISPLAY_SUBTITLE, currentArtist)
-                .putLong(MediaMetadataCompat.METADATA_KEY_DURATION, -1L);
+                .putLong(MediaMetadataCompat.METADATA_KEY_DURATION, currentDuration);
         
         if (currentCoverBitmap != null) {
             builder.putBitmap(MediaMetadataCompat.METADATA_KEY_ALBUM_ART, currentCoverBitmap);
@@ -170,9 +181,16 @@ public class PlaybackService extends Service {
         mediaSession.setMetadata(builder.build());
 
         int state = currentIsPlaying ? PlaybackStateCompat.STATE_PLAYING : PlaybackStateCompat.STATE_PAUSED;
+        float speed = currentIsPlaying ? 1.0f : 0.0f;
+        long actions = PlaybackStateCompat.ACTION_PLAY 
+                     | PlaybackStateCompat.ACTION_PAUSE 
+                     | PlaybackStateCompat.ACTION_SKIP_TO_NEXT 
+                     | PlaybackStateCompat.ACTION_SKIP_TO_PREVIOUS
+                     | PlaybackStateCompat.ACTION_SEEK_TO;
+
         PlaybackStateCompat playbackState = new PlaybackStateCompat.Builder()
-                .setActions(PlaybackStateCompat.ACTION_PLAY | PlaybackStateCompat.ACTION_PAUSE | PlaybackStateCompat.ACTION_SKIP_TO_NEXT | PlaybackStateCompat.ACTION_SKIP_TO_PREVIOUS)
-                .setState(state, PlaybackStateCompat.PLAYBACK_POSITION_UNKNOWN, 1.0f)
+                .setActions(actions)
+                .setState(state, currentPosition, speed)
                 .build();
         mediaSession.setPlaybackState(playbackState);
     }
